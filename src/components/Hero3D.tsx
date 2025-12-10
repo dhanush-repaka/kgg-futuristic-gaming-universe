@@ -116,7 +116,7 @@ export default function Hero3D() {
   }, []);
 
   return (
-    <section className="relative h-screen w-full overflow-hidden bg-gradient-to-br from-purple-50 via-pink-50 to-blue-50">
+    <section id="home" className="relative h-screen w-full overflow-hidden bg-gradient-to-br from-purple-50 via-pink-50 to-blue-50">
       {/* 3D Canvas Background */}
       <div className="absolute inset-0 opacity-60">
         <Canvas>
@@ -162,10 +162,20 @@ export default function Hero3D() {
             transition={{ delay: 0.5, duration: 0.8 }}
             className="flex flex-col sm:flex-row gap-4 justify-center"
           >
-            <button className="px-8 py-4 holo-border rounded-full font-semibold text-lg text-purple-700 hover:scale-105 transition-transform chrome-effect">
+            <button 
+              onClick={() => {
+                document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+              }}
+              className="px-8 py-4 holo-border rounded-full font-semibold text-lg text-purple-700 hover:scale-105 transition-transform chrome-effect"
+            >
               Book Now
             </button>
-            <button className="px-8 py-4 glass-holo rounded-full font-semibold text-lg text-purple-700 hover:scale-105 transition-transform">
+            <button 
+              onClick={() => {
+                document.getElementById('games')?.scrollIntoView({ behavior: 'smooth' });
+              }}
+              className="px-8 py-4 glass-holo rounded-full font-semibold text-lg text-purple-700 hover:scale-105 transition-transform"
+            >
               Explore Games
             </button>
           </motion.div>
