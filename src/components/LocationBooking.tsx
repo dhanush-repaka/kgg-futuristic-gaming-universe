@@ -86,7 +86,7 @@ export default function LocationBooking() {
   ];
 
   return (
-    <section className="relative py-20 px-4 overflow-hidden">
+    <section id="contact" className="relative py-20 px-4 overflow-hidden">
       {/* Background Effects */}
       <div className="absolute inset-0 opacity-20">
         <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-cyan-300 via-purple-300 to-pink-300" />
@@ -168,14 +168,17 @@ export default function LocationBooking() {
                 ].map((social, index) => {
                   const SocialIcon = social.icon;
                   return (
-                    <motion.button
+                    <motion.a
                       key={index}
+                      href={social.icon === Instagram ? "https://instagram.com" : "https://facebook.com"}
+                      target="_blank"
+                      rel="noopener noreferrer"
                       whileHover={{ scale: 1.1, rotate: 5 }}
                       whileTap={{ scale: 0.95 }}
                       className={`p-3 rounded-lg bg-gradient-to-br ${social.color} chrome-effect`}
                     >
                       <SocialIcon className="w-6 h-6 text-white" />
-                    </motion.button>
+                    </motion.a>
                   );
                 })}
               </div>
@@ -189,6 +192,9 @@ export default function LocationBooking() {
               transition={{ duration: 0.6, delay: 0.5 }}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
+              onClick={() => {
+                alert('Booking feature coming soon! Please call us at +91 XXXXX XXXXX or visit us at Tirupati, Andhra Pradesh.');
+              }}
               className="w-full px-8 py-4 holo-border rounded-full font-semibold text-lg text-purple-700 chrome-effect"
             >
               Book Your Session Now

@@ -47,7 +47,7 @@ export default function NewGamesSection() {
   const [hoveredId, setHoveredId] = useState<number | null>(null);
 
   return (
-    <section className="relative py-20 px-4 overflow-hidden">
+    <section id="new-games" className="relative py-20 px-4 overflow-hidden">
       {/* Background Effects */}
       <div className="absolute inset-0 opacity-20">
         <div className="absolute top-1/3 left-1/3 w-[500px] h-[500px] bg-cyan-300 rounded-full blur-[150px]" />
@@ -164,6 +164,9 @@ export default function NewGamesSection() {
                     <motion.button
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
+                      onClick={() => {
+                        document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+                      }}
                       className="mt-2 w-full px-3 py-2 holo-border rounded-lg font-semibold text-sm text-purple-700 chrome-effect"
                     >
                       Play Now
@@ -212,6 +215,9 @@ export default function NewGamesSection() {
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
+            onClick={() => {
+              document.getElementById('games')?.scrollIntoView({ behavior: 'smooth' });
+            }}
             className="px-8 py-4 holo-border rounded-full font-bold text-lg text-purple-700 chrome-effect"
           >
             View Full Game Library

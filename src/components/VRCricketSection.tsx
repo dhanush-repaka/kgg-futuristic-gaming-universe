@@ -66,7 +66,7 @@ function CricketBall() {
 
 export default function VRCricketSection() {
   return (
-    <section className="relative py-20 px-4 overflow-hidden">
+    <section id="vr-cricket" className="relative py-20 px-4 overflow-hidden">
       {/* Background Effects */}
       <div className="absolute inset-0 opacity-20">
         <div className="absolute top-1/4 right-1/4 w-[500px] h-[500px] bg-pink-300 rounded-full blur-[150px]" />
@@ -143,6 +143,9 @@ export default function VRCricketSection() {
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
+              onClick={() => {
+                alert('Thank you for your interest! We will notify you when VR Cricket Turf launches.');
+              }}
               className="px-8 py-4 holo-border rounded-full font-semibold text-lg text-purple-700 chrome-effect"
             >
               Notify Me on Launch

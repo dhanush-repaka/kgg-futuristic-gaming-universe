@@ -59,7 +59,7 @@ export default function GamingServices() {
   const [hoveredId, setHoveredId] = useState<number | null>(null);
 
   return (
-    <section className="relative py-20 px-4 overflow-hidden">
+    <section id="games" className="relative py-20 px-4 overflow-hidden">
       {/* Background Effects */}
       <div className="absolute inset-0 opacity-30">
         <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-300 rounded-full blur-[120px]" />
@@ -127,6 +127,9 @@ export default function GamingServices() {
                     <motion.button
                       whileHover={{ scale: 1.1 }}
                       whileTap={{ scale: 0.95 }}
+                      onClick={() => {
+                        document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+                      }}
                       className={`px-4 py-2 bg-gradient-to-r ${service.color} rounded-lg font-semibold text-sm text-white chrome-effect`}
                     >
                       Book
