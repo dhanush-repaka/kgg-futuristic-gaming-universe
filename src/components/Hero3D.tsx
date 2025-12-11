@@ -62,11 +62,11 @@ function FloatingVRHeadset() {
 
 function GalaxyParticles() {
   const pointsRef = useRef<Points>(null);
-  const [particleCount, setParticleCount] = useState(2000);
+  const [particleCount, setParticleCount] = useState(800);
   
   useEffect(() => {
     const updateParticleCount = () => {
-      setParticleCount(window.innerWidth < 768 ? 500 : 2000);
+      setParticleCount(window.innerWidth < 768 ? 200 : window.innerWidth < 1024 ? 500 : 800);
     };
     updateParticleCount();
     window.addEventListener('resize', updateParticleCount);
@@ -118,6 +118,22 @@ function GalaxyParticles() {
 
 export default function Hero3D() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [starsCount, setStarsCount] = useState(1500);
+  
+  useEffect(() => {
+    const updateStarsCount = () => {
+      if (window.innerWidth < 768) {
+        setStarsCount(500);
+      } else if (window.innerWidth < 1024) {
+        setStarsCount(1000);
+      } else {
+        setStarsCount(1500);
+      }
+    };
+    updateStarsCount();
+    window.addEventListener('resize', updateStarsCount);
+    return () => window.removeEventListener('resize', updateStarsCount);
+  }, []);
 
   useEffect(() => {
     let animationFrameId: number | null = null;
@@ -154,7 +170,7 @@ export default function Hero3D() {
     <section id="home" className="relative h-screen w-full overflow-hidden bg-gradient-to-br from-purple-50 via-pink-50 to-blue-50">
       {/* 3D Canvas Background */}
       <div className="absolute inset-0 opacity-50" style={{ willChange: 'transform' }}>
-        <Canvas dpr={[1, 2]} performance={{ min: 0.5 }}>
+        <Canvas dpr={[1, 1.5]} performance={{ min: 0.5 }} frameloop="demand">
           <PerspectiveCamera makeDefault position={[0, 0, 10]} />
           <ambientLight intensity={0.6} />
           <pointLight position={[10, 10, 10]} intensity={0.8} color="#A78BFA" />
@@ -165,7 +181,7 @@ export default function Hero3D() {
           <RotatingController />
           <FloatingVRHeadset />
           <GalaxyParticles />
-          <Stars radius={100} depth={50} count={3000} factor={3} fade speed={0.5} />
+          <Stars radius={100} depth={50} count={starsCount} factor={3} fade speed={0.5} />
         </Canvas>
       </div>
 

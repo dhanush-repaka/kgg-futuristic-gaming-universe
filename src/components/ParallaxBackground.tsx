@@ -8,13 +8,19 @@ export default function ParallaxBackground() {
   useEffect(() => {
     let ticking = false;
     let animationFrameId: number | null = null;
+    let lastScrollY = 0;
 
     const handleScroll = () => {
+      const currentScrollY = window.pageYOffset;
+      
+      // Skip if scroll change is minimal
+      if (Math.abs(currentScrollY - lastScrollY) < 5) return;
+      lastScrollY = currentScrollY;
+
       if (!ticking) {
         animationFrameId = requestAnimationFrame(() => {
           if (!containerRef.current) return;
-          const scrolled = window.pageYOffset;
-          const parallax = scrolled * 0.5;
+          const parallax = currentScrollY * 0.3; // Reduced parallax intensity
           containerRef.current.style.transform = `translateY(${parallax}px)`;
           ticking = false;
         });
@@ -22,10 +28,18 @@ export default function ParallaxBackground() {
       }
     };
 
-    window.addEventListener("scroll", handleScroll, { passive: true });
+    // Throttle scroll events
+    let scrollTimeout: NodeJS.Timeout;
+    const throttledScroll = () => {
+      if (scrollTimeout) clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(handleScroll, 16); // ~60fps
+    };
+
+    window.addEventListener("scroll", throttledScroll, { passive: true });
     return () => {
-      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("scroll", throttledScroll);
       if (animationFrameId) cancelAnimationFrame(animationFrameId);
+      if (scrollTimeout) clearTimeout(scrollTimeout);
     };
   }, []);
 

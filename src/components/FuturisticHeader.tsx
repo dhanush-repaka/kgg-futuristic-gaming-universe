@@ -14,8 +14,8 @@ export default function FuturisticHeader({ children, subtitle, className = "" }:
     <motion.div
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.8 }}
+      viewport={{ once: true, margin: "-50px" }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
       className={`text-center mb-16 flex flex-col items-center ${className}`}
     >
       {/* Animated Badge */}
@@ -60,8 +60,8 @@ export default function FuturisticHeader({ children, subtitle, className = "" }:
       <motion.h2
         initial={{ opacity: 0, scale: 0.8 }}
         whileInView={{ opacity: 1, scale: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6, delay: 0.2 }}
+        viewport={{ once: true, margin: "-50px" }}
+        transition={{ duration: 0.5, delay: 0.1, ease: "easeOut" }}
         className="text-5xl md:text-6xl mb-8 holo-text relative block leading-tight w-full"
         style={{
           fontWeight: 600,
