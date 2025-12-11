@@ -102,6 +102,15 @@ export default function Footer() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
+              className="text-gray-600 mb-2"
+            >
+              <span className="font-semibold text-purple-600">Don't be bored, get on board, get on board!</span>
+            </motion.p>
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
               className="text-gray-600 mb-6"
             >
               Experience the future of gaming with cutting-edge technology and 

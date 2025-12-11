@@ -6,8 +6,8 @@ import FuturisticCursor from "@/components/FuturisticCursor";
 import Script from "next/script";
 
 export const metadata: Metadata = {
-  title: "Karthikeya's Games Galaxy - Premium Gaming Lounge in Tirupati",
-  description: "Experience next-gen gaming with PS5, Xbox Series X, Meta Quest VR, Nintendo Switch, racing setups, and board games. VR Cricket Turf coming soon in Tirupati.",
+  title: "Karthikeya's Games Galaxy - Don't be bored, get on board, get on board! | Premium Gaming Lounge in Tirupati",
+  description: "Don't be bored, get on board, get on board! Experience next-gen gaming with PS5, Xbox Series X, Meta Quest VR, Nintendo Switch, racing setups, and board games. VR Cricket Turf coming soon in Tirupati.",
 };
 
 export default function RootLayout({

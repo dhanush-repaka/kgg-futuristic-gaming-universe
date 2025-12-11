@@ -6,15 +6,27 @@ export default function ParallaxBackground() {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    let ticking = false;
+    let animationFrameId: number | null = null;
+
     const handleScroll = () => {
-      if (!containerRef.current) return;
-      const scrolled = window.pageYOffset;
-      const parallax = scrolled * 0.5;
-      containerRef.current.style.transform = `translateY(${parallax}px)`;
+      if (!ticking) {
+        animationFrameId = requestAnimationFrame(() => {
+          if (!containerRef.current) return;
+          const scrolled = window.pageYOffset;
+          const parallax = scrolled * 0.5;
+          containerRef.current.style.transform = `translateY(${parallax}px)`;
+          ticking = false;
+        });
+        ticking = true;
+      }
     };
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      if (animationFrameId) cancelAnimationFrame(animationFrameId);
+    };
   }, []);
 
   return (
