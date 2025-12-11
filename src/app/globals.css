@@ -114,7 +114,9 @@
     -webkit-text-fill-color: transparent;
     background-clip: text;
     background-size: 200% 200%;
-    animation: holo-shift 4s ease infinite;
+    animation: holo-shift 8s ease infinite;
+    font-weight: 700;
+    letter-spacing: -0.02em;
   }
   
   .holo-border {
@@ -187,6 +189,184 @@
   
   .animate-prismatic {
     animation: prismatic-rotate 10s linear infinite;
+  }
+
+  @keyframes grid-move {
+    0% {
+      transform: translate(0, 0);
+    }
+    100% {
+      transform: translate(50px, 50px);
+    }
+  }
+
+  @keyframes neon-pulse {
+    0%, 100% {
+      text-shadow: 
+        0 0 10px currentColor,
+        0 0 20px currentColor,
+        0 0 30px currentColor,
+        0 0 40px currentColor;
+    }
+    50% {
+      text-shadow: 
+        0 0 5px currentColor,
+        0 0 10px currentColor,
+        0 0 15px currentColor,
+        0 0 20px currentColor;
+    }
+  }
+
+  @keyframes hologram-scan {
+    0% {
+      transform: translateY(-100%);
+      opacity: 0;
+    }
+    50% {
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(100vh);
+      opacity: 0;
+    }
+  }
+
+  @keyframes energy-flow {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+
+  .neon-text {
+    /* Subtle glow effect without blinking */
+    text-shadow: 0 0 15px rgba(168, 85, 247, 0.2);
+  }
+
+  .hologram-scan {
+    animation: hologram-scan 3s linear infinite;
+  }
+
+  .energy-flow {
+    background-size: 200% 200%;
+    animation: energy-flow 3s ease infinite;
+  }
+
+  /* 3D Transform Utilities */
+  .preserve-3d {
+    transform-style: preserve-3d;
+  }
+
+  .backface-hidden {
+    backface-visibility: hidden;
+  }
+
+  /* Glitch Effect */
+  @keyframes glitch {
+    0%, 100% {
+      transform: translate(0);
+    }
+    20% {
+      transform: translate(-2px, 2px);
+    }
+    40% {
+      transform: translate(-2px, -2px);
+    }
+    60% {
+      transform: translate(2px, 2px);
+    }
+    80% {
+      transform: translate(2px, -2px);
+    }
+  }
+
+  .glitch-effect {
+    animation: glitch 0.3s infinite;
+  }
+
+  /* Holographic Shine */
+  @keyframes holographic-shine {
+    0% {
+      background-position: -200% center;
+    }
+    100% {
+      background-position: 200% center;
+    }
+  }
+
+  .holographic-shine {
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.3),
+      transparent
+    );
+    background-size: 200% 100%;
+    animation: holographic-shine 3s infinite;
+  }
+
+  /* Interactive Button Effects */
+  .futuristic-button {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .futuristic-button::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+  }
+
+  .futuristic-button:hover::before {
+    width: 300px;
+    height: 300px;
+  }
+
+  /* Scroll Reveal Animation */
+  @keyframes scroll-reveal {
+    from {
+      opacity: 0;
+      transform: translateY(50px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .scroll-reveal {
+    animation: scroll-reveal 0.8s ease-out;
+  }
+
+  /* Glowing Border Animation */
+  @keyframes border-glow {
+    0%, 100% {
+      box-shadow: 
+        0 0 5px rgba(168, 85, 247, 0.5),
+        inset 0 0 5px rgba(168, 85, 247, 0.1);
+    }
+    50% {
+      box-shadow: 
+        0 0 20px rgba(168, 85, 247, 0.8),
+        0 0 40px rgba(236, 72, 153, 0.6),
+        inset 0 0 10px rgba(168, 85, 247, 0.2);
+    }
+  }
+
+  .border-glow {
+    animation: border-glow 3s ease-in-out infinite;
   }
 }
 
