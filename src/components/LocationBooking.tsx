@@ -153,7 +153,7 @@ export default function LocationBooking() {
                   return (
                     <motion.a
                       key={index}
-                      href={social.icon === Instagram ? "https://instagram.com" : "https://facebook.com"}
+                      href={social.icon === Instagram ? "https://www.instagram.com/karthikeyasgamesgalaxy/" : "https://facebook.com"}
                       target="_blank"
                       rel="noopener noreferrer"
                       whileHover={{ scale: 1.1, rotate: 5 }}
