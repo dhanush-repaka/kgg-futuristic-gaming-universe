@@ -15,30 +15,44 @@ export default function HolographicCard({ children, className = "" }: Holographi
     const card = cardRef.current;
     if (!card) return;
 
+    let animationFrameId: number | null = null;
+    let lastUpdate = 0;
+    const throttleMs = 16; // ~60fps
+
     const handleMouseMove = (e: MouseEvent) => {
-      const rect = card.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
+      const now = Date.now();
+      if (now - lastUpdate < throttleMs) return;
+      lastUpdate = now;
 
-      const centerX = rect.width / 2;
-      const centerY = rect.height / 2;
+      if (animationFrameId) cancelAnimationFrame(animationFrameId);
+      
+      animationFrameId = requestAnimationFrame(() => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
 
-      const rotateX = (y - centerY) / 10;
-      const rotateY = (centerX - x) / 10;
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
 
-      card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+        const rotateX = (y - centerY) / 10;
+        const rotateY = (centerX - x) / 10;
+
+        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+      });
     };
 
     const handleMouseLeave = () => {
+      if (animationFrameId) cancelAnimationFrame(animationFrameId);
       card.style.transform = "perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)";
     };
 
-    card.addEventListener("mousemove", handleMouseMove);
+    card.addEventListener("mousemove", handleMouseMove, { passive: true });
     card.addEventListener("mouseleave", handleMouseLeave);
 
     return () => {
       card.removeEventListener("mousemove", handleMouseMove);
       card.removeEventListener("mouseleave", handleMouseLeave);
+      if (animationFrameId) cancelAnimationFrame(animationFrameId);
     };
   }, []);
 
@@ -49,6 +63,7 @@ export default function HolographicCard({ children, className = "" }: Holographi
       style={{
         transformStyle: "preserve-3d",
         transition: "transform 0.1s ease-out",
+        willChange: "transform",
       }}
     >
       {/* Holographic shine effect */}
