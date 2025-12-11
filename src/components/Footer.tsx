@@ -49,7 +49,7 @@ function FloatingParticles() {
 
 export default function Footer() {
   const socialLinks = [
-    { icon: Instagram, color: "from-pink-400 to-purple-400", href: "#" },
+    { icon: Instagram, color: "from-pink-400 to-purple-400", href: "https://www.instagram.com/karthikeyasgamesgalaxy/" },
     { icon: Facebook, color: "from-blue-400 to-cyan-400", href: "#" },
     { icon: Twitter, color: "from-cyan-400 to-blue-400", href: "#" },
     { icon: Youtube, color: "from-red-400 to-pink-400", href: "#" },

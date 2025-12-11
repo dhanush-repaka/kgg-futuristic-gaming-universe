@@ -1,0 +1,15 @@
+[build]
+  command = "npm run build"
+  publish = ".next"
+
+[build.environment]
+  NODE_VERSION = "20"
+  NPM_FLAGS = "--legacy-peer-deps"
+
+# Netlify will auto-detect Next.js and handle routing automatically
+# For better optimization, you can optionally install the Netlify Next.js plugin:
+# npm install --save-dev @netlify/plugin-nextjs
+# Then uncomment the plugin section below:
+# [[plugins]]
+#   package = "@netlify/plugin-nextjs"
+
