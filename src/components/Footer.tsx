@@ -5,6 +5,7 @@ import { useRef } from "react";
 import { Points } from "three";
 import { motion } from "framer-motion";
 import { Gamepad2, Instagram, Facebook, Twitter, Youtube } from "lucide-react";
+import Image from "next/image";
 
 function FloatingParticles() {
   const pointsRef = useRef<Points>(null);
@@ -80,14 +81,19 @@ export default function Footer() {
               viewport={{ once: true }}
               className="flex items-center gap-3 mb-6"
             >
-              <div className="w-12 h-12 bg-gradient-to-br from-purple-400 to-pink-400 rounded-xl flex items-center justify-center chrome-effect">
-                <Gamepad2 className="w-7 h-7 text-white" />
+              <div className="relative h-12 w-12 lg:h-14 lg:w-14">
+                <Image
+                  src="/kgg-logo.jpeg"
+                  alt="Karthikeya's Games Galaxy"
+                  fill
+                  className="rounded-md border border-purple-300/30 shadow-lg object-cover"
+                  unoptimized
+                />
               </div>
-              <div>
-                <div className="text-2xl font-bold holo-text">
-                  Karthikeya's Games Galaxy
-                </div>
-                <div className="text-sm text-gray-500">Next-Gen Gaming Lounge</div>
+              <div className="flex flex-col leading-none">
+                <span className="text-2xl lg:text-3xl font-extrabold holo-text tracking-wide">Games Galaxy</span>
+                <span className="text-xs lg:text-sm text-purple-600 font-semibold uppercase tracking-widest">Karthikeya</span>
+                <div className="text-sm text-gray-500 mt-1">Next-Gen Gaming Lounge</div>
               </div>
             </motion.div>
             

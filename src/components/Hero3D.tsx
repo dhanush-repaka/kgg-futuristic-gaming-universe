@@ -18,14 +18,16 @@ function RotatingController() {
   });
 
   return (
-    <mesh ref={meshRef} position={[-2, 0, 0]}>
+    <mesh ref={meshRef} position={[-4, -1, -2]}>
       <boxGeometry args={[1.5, 0.5, 0.8]} />
       <meshStandardMaterial
         color="#E0E7FF"
         emissive="#8B5CF6"
-        emissiveIntensity={0.3}
+        emissiveIntensity={0.5}
         metalness={0.9}
         roughness={0.1}
+        transparent
+        opacity={0.7}
       />
     </mesh>
   );
@@ -43,14 +45,16 @@ function FloatingVRHeadset() {
   });
 
   return (
-    <mesh ref={meshRef} position={[2, 0, 0]}>
+    <mesh ref={meshRef} position={[4, 1, -2]}>
       <boxGeometry args={[1.2, 0.6, 0.8]} />
       <meshStandardMaterial
         color="#FDE4FF"
         emissive="#EC4899"
-        emissiveIntensity={0.3}
+        emissiveIntensity={0.5}
         metalness={0.9}
         roughness={0.1}
+        transparent
+        opacity={0.7}
       />
     </mesh>
   );
@@ -118,12 +122,13 @@ export default function Hero3D() {
   return (
     <section id="home" className="relative h-screen w-full overflow-hidden bg-gradient-to-br from-purple-50 via-pink-50 to-blue-50">
       {/* 3D Canvas Background */}
-      <div className="absolute inset-0 opacity-60">
+      <div className="absolute inset-0 opacity-50">
         <Canvas>
-          <PerspectiveCamera makeDefault position={[0, 0, 8]} />
-          <ambientLight intensity={0.8} />
-          <pointLight position={[10, 10, 10]} intensity={0.5} color="#A78BFA" />
-          <pointLight position={[-10, -10, -10]} intensity={0.5} color="#EC4899" />
+          <PerspectiveCamera makeDefault position={[0, 0, 10]} />
+          <ambientLight intensity={0.6} />
+          <pointLight position={[10, 10, 10]} intensity={0.8} color="#A78BFA" />
+          <pointLight position={[-10, -10, -10]} intensity={0.8} color="#EC4899" />
+          <pointLight position={[0, 10, 5]} intensity={0.6} color="#60A5FA" />
           <spotLight position={[0, 5, 0]} angle={0.3} intensity={0.5} color="#60A5FA" />
           
           <RotatingController />
@@ -133,26 +138,123 @@ export default function Hero3D() {
         </Canvas>
       </div>
 
+      {/* Futuristic Grid Overlay */}
+      <div className="absolute inset-0 opacity-30 pointer-events-none">
+        <div 
+          className="w-full h-full"
+          style={{
+            backgroundImage: `
+              linear-gradient(rgba(168, 85, 247, 0.1) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(168, 85, 247, 0.1) 1px, transparent 1px)
+            `,
+            backgroundSize: '50px 50px',
+            animation: 'grid-move 20s linear infinite'
+          }}
+        />
+      </div>
+
       {/* Holographic Overlay */}
       <div className="absolute inset-0 bg-gradient-to-br from-purple-200/20 via-transparent to-cyan-200/20 animate-prismatic pointer-events-none" />
+      
+      {/* Scan Line Effect */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        <motion.div
+          className="absolute w-full h-1 bg-gradient-to-r from-transparent via-purple-400/50 to-transparent"
+          animate={{
+            y: ['0vh', '100vh'],
+          }}
+          transition={{
+            duration: 8,
+            repeat: Infinity,
+            ease: 'linear',
+          }}
+        />
+      </div>
+
+      {/* Energy Waves */}
+      <div className="absolute inset-0 pointer-events-none">
+        <motion.div
+          className="absolute top-1/2 left-1/2 w-96 h-96 -translate-x-1/2 -translate-y-1/2 rounded-full border border-purple-400/30"
+          animate={{
+            scale: [1, 1.5, 2],
+            opacity: [0.5, 0.2, 0],
+          }}
+          transition={{
+            duration: 4,
+            repeat: Infinity,
+            ease: 'easeOut',
+          }}
+        />
+        <motion.div
+          className="absolute top-1/2 left-1/2 w-96 h-96 -translate-x-1/2 -translate-y-1/2 rounded-full border border-pink-400/30"
+          animate={{
+            scale: [1, 1.5, 2],
+            opacity: [0.5, 0.2, 0],
+          }}
+          transition={{
+            duration: 4,
+            repeat: Infinity,
+            delay: 1,
+            ease: 'easeOut',
+          }}
+        />
+        <motion.div
+          className="absolute top-1/2 left-1/2 w-96 h-96 -translate-x-1/2 -translate-y-1/2 rounded-full border border-cyan-400/30"
+          animate={{
+            scale: [1, 1.5, 2],
+            opacity: [0.5, 0.2, 0],
+          }}
+          transition={{
+            duration: 4,
+            repeat: Infinity,
+            delay: 2,
+            ease: 'easeOut',
+          }}
+        />
+      </div>
 
       {/* Hero Content */}
       <div className="relative z-10 flex h-full flex-col items-center justify-center px-4 text-center">
+        {/* Text Backdrop Glow */}
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+          <div className="w-full max-w-4xl h-96 bg-gradient-to-br from-purple-500/10 via-pink-500/10 to-cyan-500/10 rounded-3xl blur-3xl" />
+        </div>
+
+        {/* Glassmorphism Container */}
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1 }}
+          className="relative backdrop-blur-xl bg-white/10 rounded-3xl p-8 md:p-12 border border-white/20 shadow-2xl"
           style={{
-            transform: `translate(${mousePosition.x * 20}px, ${mousePosition.y * 20}px)`,
+            transform: `translate(${mousePosition.x * 10}px, ${mousePosition.y * 10}px)`,
+            boxShadow: '0 8px 32px 0 rgba(168, 85, 247, 0.3), inset 0 1px 0 0 rgba(255, 255, 255, 0.2)',
           }}
         >
-          <h1 className="text-6xl md:text-8xl font-black mb-6 holo-text">
+          {/* Holographic Glitch Effect */}
+          <motion.div
+            className="absolute inset-0 rounded-3xl opacity-0"
+            animate={{
+              opacity: [0, 0.1, 0],
+            }}
+            transition={{
+              duration: 0.3,
+              repeat: Infinity,
+              repeatDelay: 3,
+            }}
+            style={{
+              background: 'linear-gradient(90deg, transparent, rgba(168, 85, 247, 0.5), transparent)',
+              transform: 'skewX(-20deg)',
+            }}
+          />
+
+          <h1 className="text-6xl md:text-8xl font-black mb-6 holo-text relative z-10 drop-shadow-[0_0_30px_rgba(168,85,247,0.5)]">
             KARTHIKEYA'S
           </h1>
-          <h2 className="text-5xl md:text-7xl font-bold mb-4 holo-text">
+          <h2 className="text-5xl md:text-7xl font-bold mb-4 holo-text relative z-10 drop-shadow-[0_0_30px_rgba(236,72,153,0.5)]">
             GAMES GALAXY
           </h2>
-          <p className="text-xl md:text-2xl text-purple-600 mb-8 font-light tracking-wide">
+          <p className="text-xl md:text-2xl text-purple-600 mb-8 font-light tracking-wide relative z-10">
             Experience Next-Gen Gaming in Tirupati
           </p>
           
@@ -162,22 +264,24 @@ export default function Hero3D() {
             transition={{ delay: 0.5, duration: 0.8 }}
             className="flex flex-col sm:flex-row gap-4 justify-center"
           >
-            <button 
-              onClick={() => {
-                document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
-              }}
-              className="px-8 py-4 holo-border rounded-full font-semibold text-lg text-purple-700 hover:scale-105 transition-transform chrome-effect"
+            <motion.a 
+              href="/booking"
+              whileHover={{ scale: 1.05, boxShadow: "0 0 30px rgba(168, 85, 247, 0.6)" }}
+              whileTap={{ scale: 0.95 }}
+              className="px-8 py-4 holo-border rounded-full font-semibold text-lg text-purple-700 chrome-effect inline-block futuristic-button relative overflow-hidden"
             >
-              Book Now
-            </button>
-            <button 
+              <span className="relative z-10">Book Now</span>
+            </motion.a>
+            <motion.button 
               onClick={() => {
                 document.getElementById('games')?.scrollIntoView({ behavior: 'smooth' });
               }}
-              className="px-8 py-4 glass-holo rounded-full font-semibold text-lg text-purple-700 hover:scale-105 transition-transform"
+              whileHover={{ scale: 1.05, boxShadow: "0 0 30px rgba(236, 72, 153, 0.6)" }}
+              whileTap={{ scale: 0.95 }}
+              className="px-8 py-4 glass-holo rounded-full font-semibold text-lg text-purple-700 futuristic-button relative overflow-hidden"
             >
-              Explore Games
-            </button>
+              <span className="relative z-10">Explore Games</span>
+            </motion.button>
           </motion.div>
         </motion.div>
 

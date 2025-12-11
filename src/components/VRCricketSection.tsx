@@ -67,10 +67,46 @@ function CricketBall() {
 export default function VRCricketSection() {
   return (
     <section id="vr-cricket" className="relative py-20 px-4 overflow-hidden">
-      {/* Background Effects */}
+      {/* Animated Background Effects */}
       <div className="absolute inset-0 opacity-20">
-        <div className="absolute top-1/4 right-1/4 w-[500px] h-[500px] bg-pink-300 rounded-full blur-[150px]" />
-        <div className="absolute bottom-1/4 left-1/4 w-[500px] h-[500px] bg-blue-300 rounded-full blur-[150px]" />
+        <motion.div
+          className="absolute top-1/4 right-1/4 w-[500px] h-[500px] bg-pink-300 rounded-full blur-[150px]"
+          animate={{
+            scale: [1, 1.2, 1],
+            x: [0, 50, 0],
+            y: [0, 30, 0],
+          }}
+          transition={{
+            duration: 8,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
+        <motion.div
+          className="absolute bottom-1/4 left-1/4 w-[500px] h-[500px] bg-blue-300 rounded-full blur-[150px]"
+          animate={{
+            scale: [1, 1.3, 1],
+            x: [0, -40, 0],
+            y: [0, -50, 0],
+          }}
+          transition={{
+            duration: 10,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
+        <motion.div
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-purple-300 rounded-full blur-[120px]"
+          animate={{
+            scale: [1, 1.4, 1],
+            opacity: [0.2, 0.4, 0.2],
+          }}
+          transition={{
+            duration: 6,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto">
@@ -103,12 +139,22 @@ export default function VRCricketSection() {
             transition={{ duration: 0.8 }}
           >
             <div className="inline-block px-4 py-2 glass-holo rounded-full mb-6 holo-border">
-              <span className="text-purple-600 font-semibold animate-pulse">
+              <motion.span 
+                className="text-purple-600 font-semibold flex items-center gap-2"
+                animate={{
+                  opacity: [1, 0.7, 1],
+                  scale: [1, 1.05, 1],
+                }}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                }}
+              >
                 🎮 COMING SOON
-              </span>
+              </motion.span>
             </div>
 
-            <h2 className="text-5xl md:text-6xl font-bold mb-6 holo-text">
+            <h2 className="text-5xl md:text-6xl mb-6 holo-text" style={{ fontWeight: 600, letterSpacing: "-0.01em" }}>
               VR Cricket Turf
             </h2>
 

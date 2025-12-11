@@ -4,6 +4,8 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import { Sparkles } from "lucide-react";
 import Image from "next/image";
+import HolographicCard from "./HolographicCard";
+import FuturisticHeader from "./FuturisticHeader";
 
 const games = [
   {
@@ -48,10 +50,34 @@ export default function NewGamesSection() {
 
   return (
     <section id="new-games" className="relative py-20 px-4 overflow-hidden">
-      {/* Background Effects */}
+      {/* Animated Background Effects */}
       <div className="absolute inset-0 opacity-20">
-        <div className="absolute top-1/3 left-1/3 w-[500px] h-[500px] bg-cyan-300 rounded-full blur-[150px]" />
-        <div className="absolute bottom-1/3 right-1/3 w-[500px] h-[500px] bg-purple-300 rounded-full blur-[150px]" />
+        <motion.div
+          className="absolute top-1/3 left-1/3 w-[500px] h-[500px] bg-cyan-300 rounded-full blur-[150px]"
+          animate={{
+            scale: [1, 1.4, 1],
+            x: [0, 40, 0],
+            y: [0, -25, 0],
+          }}
+          transition={{
+            duration: 12,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
+        <motion.div
+          className="absolute bottom-1/3 right-1/3 w-[500px] h-[500px] bg-purple-300 rounded-full blur-[150px]"
+          animate={{
+            scale: [1, 1.3, 1],
+            x: [0, -35, 0],
+            y: [0, 40, 0],
+          }}
+          transition={{
+            duration: 15,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
       </div>
 
       {/* Floating Particles */}
@@ -81,25 +107,18 @@ export default function NewGamesSection() {
 
       <div className="relative z-10 max-w-7xl mx-auto">
         {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
+        <FuturisticHeader subtitle="New Arrivals">
+          Now Available
+        </FuturisticHeader>
+        <motion.p
+          initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-16"
+          transition={{ delay: 0.4, duration: 0.6 }}
+          className="text-xl text-gray-600 text-center mb-12 mt-4"
         >
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-holo holo-border mb-4">
-            <Sparkles className="w-5 h-5 text-purple-600 animate-pulse" />
-            <span className="text-purple-600 font-semibold">NEW ARRIVALS</span>
-            <Sparkles className="w-5 h-5 text-purple-600 animate-pulse" />
-          </div>
-          <h2 className="text-5xl md:text-6xl font-bold mb-4 holo-text">
-            Now Available
-          </h2>
-          <p className="text-xl text-gray-600">
-            Latest blockbuster titles ready to play
-          </p>
-        </motion.div>
+          Latest blockbuster titles ready to play
+        </motion.p>
 
         {/* Games Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
@@ -119,22 +138,25 @@ export default function NewGamesSection() {
               onHoverEnd={() => setHoveredId(null)}
               className="relative group cursor-pointer"
             >
-              <motion.div
-                animate={{
-                  rotateY: hoveredId === game.id ? 8 : 0,
-                  rotateX: hoveredId === game.id ? -8 : 0,
-                  scale: hoveredId === game.id ? 1.05 : 1,
-                  z: hoveredId === game.id ? 50 : 0,
-                }}
-                transition={{ duration: 0.4, type: "spring", stiffness: 300 }}
-                style={{
-                  transformStyle: "preserve-3d",
-                  perspective: "1000px",
-                }}
-                className={`relative rounded-2xl overflow-hidden border-2 border-white/40 ${
-                  hoveredId === game.id ? "prismatic-glow" : ""
-                } transition-all duration-300`}
-              >
+              <HolographicCard>
+                <motion.div
+                  animate={{
+                    rotateY: hoveredId === game.id ? 8 : 0,
+                    rotateX: hoveredId === game.id ? -8 : 0,
+                    scale: hoveredId === game.id ? 1.05 : 1,
+                    z: hoveredId === game.id ? 50 : 0,
+                  }}
+                  transition={{ duration: 0.4, type: "spring", stiffness: 300 }}
+                  style={{
+                    transformStyle: "preserve-3d",
+                    perspective: "1000px",
+                  }}
+                  className={`relative rounded-2xl overflow-hidden border-2 ${
+                    hoveredId === game.id 
+                      ? "border-purple-400 shadow-[0_0_40px_rgba(168,85,247,0.8)] prismatic-glow" 
+                      : "border-white/40"
+                  } transition-all duration-300`}
+                >
                 {/* Game Image */}
                 <div className="relative aspect-[3/4] overflow-hidden">
                   <Image
@@ -161,34 +183,61 @@ export default function NewGamesSection() {
                       {game.title}
                     </h3>
                     <p className="text-sm text-gray-700">{game.genre}</p>
-                    <motion.button
+                    <motion.a
+                      href="/booking"
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
-                      onClick={() => {
-                        document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
-                      }}
-                      className="mt-2 w-full px-3 py-2 holo-border rounded-lg font-semibold text-sm text-purple-700 chrome-effect"
+                      className="mt-2 w-full px-3 py-2 holo-border rounded-lg font-semibold text-sm text-purple-700 chrome-effect inline-block text-center"
                     >
                       Play Now
-                    </motion.button>
+                    </motion.a>
                   </motion.div>
                 </div>
 
                 {/* 3D Shine Effect */}
                 {hoveredId === game.id && (
-                  <motion.div
-                    initial={{ opacity: 0, x: "-100%" }}
-                    animate={{ opacity: [0, 1, 0], x: "100%" }}
-                    transition={{ duration: 0.8 }}
-                    className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent pointer-events-none"
-                    style={{ transform: "translateZ(30px)" }}
-                  />
+                  <>
+                    <motion.div
+                      initial={{ opacity: 0, x: "-100%" }}
+                      animate={{ opacity: [0, 1, 0], x: "100%" }}
+                      transition={{ duration: 0.8, repeat: Infinity, repeatDelay: 2 }}
+                      className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent pointer-events-none holographic-shine"
+                      style={{ transform: "translateZ(30px)" }}
+                    />
+                    <motion.div
+                      initial={{ scale: 0.8, opacity: 0 }}
+                      animate={{ scale: 1.2, opacity: 0.4 }}
+                      transition={{ duration: 1, repeat: Infinity, repeatType: "reverse" }}
+                      className={`absolute inset-0 bg-gradient-to-t ${game.glowColor} pointer-events-none blur-xl`}
+                    />
+                  </>
                 )}
 
-                {/* Corner Accents */}
-                <div className="absolute top-2 right-2 w-8 h-8 border-t-2 border-r-2 border-purple-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                <div className="absolute bottom-2 left-2 w-8 h-8 border-b-2 border-l-2 border-purple-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              </motion.div>
+                {/* Corner Accents with Neon Glow */}
+                <motion.div 
+                  className="absolute top-2 right-2 w-8 h-8 border-t-2 border-r-2 border-purple-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                  animate={hoveredId === game.id ? {
+                    boxShadow: [
+                      "0 0 10px rgba(168, 85, 247, 0.5)",
+                      "0 0 20px rgba(168, 85, 247, 0.8)",
+                      "0 0 10px rgba(168, 85, 247, 0.5)",
+                    ]
+                  } : {}}
+                  transition={{ duration: 1, repeat: Infinity }}
+                />
+                <motion.div 
+                  className="absolute bottom-2 left-2 w-8 h-8 border-b-2 border-l-2 border-purple-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                  animate={hoveredId === game.id ? {
+                    boxShadow: [
+                      "0 0 10px rgba(168, 85, 247, 0.5)",
+                      "0 0 20px rgba(168, 85, 247, 0.8)",
+                      "0 0 10px rgba(168, 85, 247, 0.5)",
+                    ]
+                  } : {}}
+                  transition={{ duration: 1, repeat: Infinity, delay: 0.5 }}
+                />
+                </motion.div>
+              </HolographicCard>
 
               {/* Floating Label when not hovered */}
               {hoveredId !== game.id && (
