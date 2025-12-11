@@ -62,6 +62,16 @@ function FloatingVRHeadset() {
 
 function GalaxyParticles() {
   const pointsRef = useRef<Points>(null);
+  const [particleCount, setParticleCount] = useState(2000);
+  
+  useEffect(() => {
+    const updateParticleCount = () => {
+      setParticleCount(window.innerWidth < 768 ? 500 : 2000);
+    };
+    updateParticleCount();
+    window.addEventListener('resize', updateParticleCount);
+    return () => window.removeEventListener('resize', updateParticleCount);
+  }, []);
   
   useFrame((state) => {
     if (pointsRef.current) {
@@ -70,17 +80,19 @@ function GalaxyParticles() {
     }
   });
 
-  const particleCount = 2000;
-  const positions = new Float32Array(particleCount * 3);
+  const positions = useRef<Float32Array | null>(null);
   
-  for (let i = 0; i < particleCount; i++) {
-    const radius = Math.random() * 10 + 5;
-    const theta = Math.random() * Math.PI * 2;
-    const phi = Math.random() * Math.PI;
-    
-    positions[i * 3] = radius * Math.sin(phi) * Math.cos(theta);
-    positions[i * 3 + 1] = radius * Math.sin(phi) * Math.sin(theta);
-    positions[i * 3 + 2] = radius * Math.cos(phi);
+  if (!positions.current || positions.current.length !== particleCount * 3) {
+    positions.current = new Float32Array(particleCount * 3);
+    for (let i = 0; i < particleCount; i++) {
+      const radius = Math.random() * 10 + 5;
+      const theta = Math.random() * Math.PI * 2;
+      const phi = Math.random() * Math.PI;
+      
+      positions.current[i * 3] = radius * Math.sin(phi) * Math.cos(theta);
+      positions.current[i * 3 + 1] = radius * Math.sin(phi) * Math.sin(theta);
+      positions.current[i * 3 + 2] = radius * Math.cos(phi);
+    }
   }
 
   return (
@@ -89,7 +101,7 @@ function GalaxyParticles() {
         <bufferAttribute
           attach="attributes-position"
           count={particleCount}
-          array={positions}
+          array={positions.current}
           itemSize={3}
         />
       </bufferGeometry>
@@ -108,22 +120,41 @@ export default function Hero3D() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
+    let animationFrameId: number | null = null;
+    let lastUpdate = 0;
+    const throttleMs = 16; // ~60fps
+
     const handleMouseMove = (e: MouseEvent) => {
-      setMousePosition({
-        x: (e.clientX / window.innerWidth) * 2 - 1,
-        y: -(e.clientY / window.innerHeight) * 2 + 1,
+      const now = Date.now();
+      if (now - lastUpdate < throttleMs) return;
+      lastUpdate = now;
+
+      if (animationFrameId) cancelAnimationFrame(animationFrameId);
+      
+      animationFrameId = requestAnimationFrame(() => {
+        setMousePosition({
+          x: (e.clientX / window.innerWidth) * 2 - 1,
+          y: -(e.clientY / window.innerHeight) * 2 + 1,
+        });
       });
     };
 
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
+    // Only add listener on desktop
+    if (window.innerWidth > 768) {
+      window.addEventListener("mousemove", handleMouseMove, { passive: true });
+    }
+    
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+      if (animationFrameId) cancelAnimationFrame(animationFrameId);
+    };
   }, []);
 
   return (
     <section id="home" className="relative h-screen w-full overflow-hidden bg-gradient-to-br from-purple-50 via-pink-50 to-blue-50">
       {/* 3D Canvas Background */}
-      <div className="absolute inset-0 opacity-50">
-        <Canvas>
+      <div className="absolute inset-0 opacity-50" style={{ willChange: 'transform' }}>
+        <Canvas dpr={[1, 2]} performance={{ min: 0.5 }}>
           <PerspectiveCamera makeDefault position={[0, 0, 10]} />
           <ambientLight intensity={0.6} />
           <pointLight position={[10, 10, 10]} intensity={0.8} color="#A78BFA" />
@@ -214,7 +245,7 @@ export default function Hero3D() {
       </div>
 
       {/* Hero Content */}
-      <div className="relative z-10 flex h-full flex-col items-center justify-center px-4 text-center">
+      <div className="relative z-10 flex h-full flex-col items-center justify-center px-4 sm:px-6 md:px-8 text-center w-full max-w-full">
         {/* Text Backdrop Glow */}
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
           <div className="w-full max-w-4xl h-96 bg-gradient-to-br from-purple-500/10 via-pink-500/10 to-cyan-500/10 rounded-3xl blur-3xl" />
@@ -225,10 +256,11 @@ export default function Hero3D() {
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1 }}
-          className="relative backdrop-blur-xl bg-white/10 rounded-3xl p-8 md:p-12 border border-white/20 shadow-2xl"
+          className="relative backdrop-blur-xl bg-white/10 rounded-3xl p-6 sm:p-8 md:p-12 border border-white/20 shadow-2xl w-full max-w-5xl mx-auto"
           style={{
-            transform: `translate(${mousePosition.x * 10}px, ${mousePosition.y * 10}px)`,
+            transform: `translate(${typeof window !== 'undefined' && window.innerWidth > 768 ? mousePosition.x * 10 : 0}px, ${typeof window !== 'undefined' && window.innerWidth > 768 ? mousePosition.y * 10 : 0}px)`,
             boxShadow: '0 8px 32px 0 rgba(168, 85, 247, 0.3), inset 0 1px 0 0 rgba(255, 255, 255, 0.2)',
+            willChange: 'transform',
           }}
         >
           {/* Holographic Glitch Effect */}
@@ -248,13 +280,16 @@ export default function Hero3D() {
             }}
           />
 
-          <h1 className="text-6xl md:text-8xl font-black mb-6 holo-text relative z-10 drop-shadow-[0_0_30px_rgba(168,85,247,0.5)]">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-8xl font-black mb-4 sm:mb-6 holo-text relative z-10 drop-shadow-[0_0_30px_rgba(168,85,247,0.5)] break-words">
             KARTHIKEYA'S
           </h1>
-          <h2 className="text-5xl md:text-7xl font-bold mb-4 holo-text relative z-10 drop-shadow-[0_0_30px_rgba(236,72,153,0.5)]">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold mb-3 sm:mb-4 holo-text relative z-10 drop-shadow-[0_0_30px_rgba(236,72,153,0.5)] break-words">
             GAMES GALAXY
           </h2>
-          <p className="text-xl md:text-2xl text-purple-600 mb-8 font-light tracking-wide relative z-10">
+          <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-purple-600 mb-4 sm:mb-6 md:mb-8 font-light tracking-wide relative z-10 px-2">
+            Don't be bored, get on board, get on board!
+          </p>
+          <p className="text-sm sm:text-base md:text-lg lg:text-xl text-purple-500 mb-6 sm:mb-8 font-light tracking-wide relative z-10 px-2">
             Experience Next-Gen Gaming in Tirupati
           </p>
           
