@@ -104,7 +104,7 @@ export default function Footer() {
               transition={{ delay: 0.1 }}
               className="text-gray-600 mb-2"
             >
-              <span className="font-semibold text-purple-600">Don't be bore, get on-board!</span>
+              <span className="font-semibold text-purple-600">Don't be bored, get on-board!</span>
             </motion.p>
             <motion.p
               initial={{ opacity: 0, y: 20 }}
