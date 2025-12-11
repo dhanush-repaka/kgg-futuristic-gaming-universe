@@ -287,7 +287,7 @@ export default function Hero3D() {
             GAMES GALAXY
           </h2>
           <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-purple-600 mb-4 sm:mb-6 md:mb-8 font-light tracking-wide relative z-10 px-2">
-            Don't be bored, get on board, get on board!
+            Don't be bore, get on-board!
           </p>
           <p className="text-sm sm:text-base md:text-lg lg:text-xl text-purple-500 mb-6 sm:mb-8 font-light tracking-wide relative z-10 px-2">
             Experience Next-Gen Gaming in Tirupati
