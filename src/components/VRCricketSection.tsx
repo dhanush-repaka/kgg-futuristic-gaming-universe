@@ -150,7 +150,7 @@ export default function VRCricketSection() {
                   repeat: Infinity,
                 }}
               >
-                🎮 COMING SOON
+                🎮 NOW AVAILABLE!
               </motion.span>
             </div>
 
@@ -159,10 +159,10 @@ export default function VRCricketSection() {
             </h2>
 
             <p className="text-xl text-gray-600 mb-8 leading-relaxed">
-              Step into the future of cricket with our revolutionary VR Cricket Turf. 
-              Experience realistic bowling, batting, and fielding in an immersive 
-              virtual environment. Perfect your technique, face world-class bowlers, 
-              and play in iconic stadiums—all in virtual reality.
+              🏏 <strong>Experience cricket like never before!</strong> Our revolutionary VR Cricket Turf is now live and ready for you to play! 
+              Step into an immersive virtual world where you can master realistic bowling, perfect your batting technique, and showcase your fielding skills. 
+              Challenge yourself against world-class bowlers, compete in iconic stadiums, and feel the thrill of cricket in stunning virtual reality. 
+              <strong> Don't wait—book your session today and be part of the future of cricket gaming!</strong>
             </p>
 
             <div className="space-y-4 mb-8">
@@ -190,11 +190,11 @@ export default function VRCricketSection() {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => {
-                alert('Thank you for your interest! We will notify you when VR Cricket Turf launches.');
+                alert('🎉 Exciting! VR Cricket is ready for you! Contact us to book your session and experience the future of cricket gaming today!');
               }}
               className="px-8 py-4 holo-border rounded-full font-semibold text-lg text-purple-700 chrome-effect"
             >
-              Notify Me on Launch
+              🏏 Book Your VR Cricket Session
             </motion.button>
           </motion.div>
         </div>

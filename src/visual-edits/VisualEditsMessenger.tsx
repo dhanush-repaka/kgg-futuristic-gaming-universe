@@ -1247,6 +1247,38 @@ export default function HoverReceiver() {
     }
   };
 
+  // Keyboard shortcut to toggle visual edit mode (Ctrl+E or Ctrl+Shift+E)
+  useEffect(() => {
+    function handleKeyDown(e: KeyboardEvent) {
+      // Check for Ctrl+E or Ctrl+Shift+E
+      if ((e.ctrlKey || e.metaKey) && e.key === 'e' && !e.altKey) {
+        // Prevent default browser behavior
+        e.preventDefault();
+        e.stopPropagation();
+        
+        // Toggle visual edit mode
+        const newMode = !isVisualEditMode;
+        setIsVisualEditMode(newMode);
+        
+        // Notify parent window
+        window.parent.postMessage(
+          { type: CHANNEL, msg: "VISUAL_EDIT_MODE", active: newMode },
+          "*"
+        );
+        
+        // Show a brief notification
+        if (typeof window !== "undefined") {
+          console.log(`Visual Edit Mode: ${newMode ? "ENABLED" : "DISABLED"} (Press Ctrl+E to toggle)`);
+        }
+      }
+    }
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [isVisualEditMode]);
+
   // Prevent all navigation in visual edit mode
   useEffect(() => {
     if (!isVisualEditMode) return;
