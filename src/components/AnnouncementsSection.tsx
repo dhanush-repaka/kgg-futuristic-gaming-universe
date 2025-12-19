@@ -106,7 +106,7 @@ export default function AnnouncementsSection() {
                 {/* Overview Content */}
                 <div className="space-y-4 mb-6">
                   <p className="text-lg text-gray-700 leading-relaxed">
-                    🎮 <strong>End your gaming session with a chance to win!</strong> Roll the dice at checkout—if you get a <strong className="text-red-600">1</strong>, you'll receive <strong className="text-yellow-600">1 hour of FREE gaming</strong> on any platform of your choice!
+                    🎮 <strong>End your gaming session with a chance to save!</strong> Roll the dice at checkout—if you get a <strong className="text-red-600">1</strong>, you'll get <strong className="text-yellow-600">1 hour FREE</strong> deducted from your session bill! <strong>Example:</strong> Play 2 hours, roll a 1, pay for only 1 hour!
                   </p>
                   
                   <div className="flex flex-wrap gap-3">
@@ -179,15 +179,15 @@ export default function AnnouncementsSection() {
                             </div>
                             <div className="flex items-start gap-3">
                               <span className="text-2xl">3️⃣</span>
-                              <p>If the dice shows <strong className="text-red-600">1</strong>, you win <strong className="text-yellow-600">1 hour of FREE gaming</strong>!</p>
+                              <p>If the dice shows <strong className="text-red-600">1</strong>, you win <strong className="text-yellow-600">1 hour FREE</strong>—deducted from your session bill!</p>
                             </div>
                             <div className="flex items-start gap-3">
                               <span className="text-2xl">4️⃣</span>
-                              <p>Your free hour can be used on <strong>any platform</strong>—PS5, Xbox, VR, Nintendo Switch, or PC gaming</p>
+                              <p><strong>Example:</strong> If you played for 2 hours and roll a 1, you only pay for 1 hour. The free hour is automatically applied to your current session!</p>
                             </div>
                             <div className="flex items-start gap-3">
                               <span className="text-2xl">5️⃣</span>
-                              <p>No payment required for your free hour—just pure gaming fun!</p>
+                              <p>Payment is made at the end of your session, after the dice roll. The discount applies to <strong>any platform</strong>—PS5, Xbox, VR, Nintendo Switch, or PC gaming!</p>
                             </div>
                           </div>
                         </div>
@@ -206,11 +206,15 @@ export default function AnnouncementsSection() {
                             </li>
                             <li className="flex items-start gap-2">
                               <span className="text-red-500 mt-1">•</span>
-                              <span>Free hour must be used on the same day or can be redeemed on your next visit (within 7 days)</span>
+                              <span>The free hour is <strong>redeemed against your current session payment</strong>—you don't need to pay for that hour!</span>
                             </li>
                             <li className="flex items-start gap-2">
                               <span className="text-red-500 mt-1">•</span>
-                              <span>Free gaming hour applies to any platform—your choice!</span>
+                              <span>Discount applies to any platform—PS5, Xbox, VR, Nintendo Switch, or PC gaming</span>
+                            </li>
+                            <li className="flex items-start gap-2">
+                              <span className="text-red-500 mt-1">•</span>
+                              <span>Payment is processed at the end of your session, after the dice roll</span>
                             </li>
                             <li className="flex items-start gap-2">
                               <span className="text-red-500 mt-1">•</span>
