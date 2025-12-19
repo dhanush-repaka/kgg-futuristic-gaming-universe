@@ -9,6 +9,7 @@ import ParallaxBackground from "@/components/ParallaxBackground";
 import InteractiveParticles from "@/components/InteractiveParticles";
 import AnimatedBackground from "@/components/AnimatedBackground";
 import SectionDivider from "@/components/SectionDivider";
+import AnnouncementsSection from "@/components/AnnouncementsSection";
 
 export default function Home() {
   return (
@@ -18,6 +19,8 @@ export default function Home() {
       <InteractiveParticles />
       <Navigation />
       <Hero3D />
+      <SectionDivider />
+      <AnnouncementsSection />
       <SectionDivider />
       <GamingServices />
       <SectionDivider />
