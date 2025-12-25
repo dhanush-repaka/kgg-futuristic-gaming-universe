@@ -10,10 +10,12 @@ import InteractiveParticles from "@/components/InteractiveParticles";
 import AnimatedBackground from "@/components/AnimatedBackground";
 import SectionDivider from "@/components/SectionDivider";
 import AnnouncementsSection from "@/components/AnnouncementsSection";
+import DiceRollPopup from "@/components/DiceRollPopup";
 
 export default function Home() {
   return (
     <div className="min-h-screen relative">
+      <DiceRollPopup />
       <AnimatedBackground />
       <ParallaxBackground />
       <InteractiveParticles />
