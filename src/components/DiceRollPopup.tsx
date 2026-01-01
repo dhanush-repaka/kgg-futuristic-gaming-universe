@@ -2,7 +2,7 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
-import { Sparkles, Dices, Gift, Calendar } from "lucide-react";
+import { Sparkles, Dices, Gift, Calendar, Users, GlassWater } from "lucide-react";
 import {
   Dialog,
   DialogContent,
@@ -85,49 +85,90 @@ export default function DiceRollPopup() {
                 <div className="text-center mb-6">
                   <div className="inline-flex items-center gap-2 px-4 py-2 glass-holo rounded-full mb-4 holo-border">
                     <Sparkles className="w-4 h-4 text-yellow-500" />
-                    <span className="text-yellow-600 font-semibold">This Weekend Special</span>
+                    <span className="text-yellow-600 font-semibold">Special Offers</span>
                   </div>
                   <h2 className="text-4xl md:text-5xl mb-4 holo-text" style={{ fontWeight: 600, letterSpacing: "-0.01em" }}>
-                    🎲 Dice Roll Challenge
+                    🎉 Exciting Campaigns
                   </h2>
                 </div>
 
-                {/* Card Header */}
-                <div className="flex items-start justify-between mb-6">
-                  <div className="flex items-center gap-3">
-                    <motion.div
-                      animate={{ rotate: [0, 10, -10, 0] }}
-                      transition={{ duration: 2, repeat: Infinity, repeatDelay: 3 }}
-                      className="w-16 h-16 rounded-xl bg-gradient-to-br from-red-500 to-red-700 flex items-center justify-center shadow-lg"
-                    >
-                      <Dices className="w-10 h-10 text-white" />
-                    </motion.div>
-                    <div>
-                      <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-1">
-                        Roll a 1, Get 1 Hour FREE!
-                      </h3>
-                      <div className="flex items-center gap-2 text-sm text-gray-600">
-                        <Calendar className="w-4 h-4" />
-                        <span className="font-semibold text-red-600">Valid This Weekend Only</span>
+                {/* Group Mojito Campaign */}
+                <div className="mb-6 pb-6 border-b-2 border-green-200/50">
+                  <div className="flex items-start justify-between mb-4">
+                    <div className="flex items-center gap-3">
+                      <motion.div
+                        animate={{ scale: [1, 1.1, 1] }}
+                        transition={{ duration: 2, repeat: Infinity, repeatDelay: 2 }}
+                        className="w-16 h-16 rounded-xl bg-gradient-to-br from-green-500 to-emerald-700 flex items-center justify-center shadow-lg"
+                      >
+                        <Users className="w-10 h-10 text-white" />
+                      </motion.div>
+                      <div>
+                        <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-1">
+                          🍹 Group of 3+? Free Mojito for Everyone!
+                        </h3>
+                        <div className="flex items-center gap-2 text-sm text-gray-600">
+                          <GlassWater className="w-4 h-4" />
+                          <span className="font-semibold text-green-600">Ongoing Promotion</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="space-y-3">
+                    <p className="text-lg text-gray-700 leading-relaxed">
+                      🎉 <strong>Bring your friends and enjoy!</strong> When you visit as a <strong className="text-green-600">group of 3 or more</strong>, <strong className="text-emerald-600">everyone in your group gets a FREE mojito!</strong> Perfect for gaming sessions with friends!
+                    </p>
+                    <div className="flex flex-wrap gap-3">
+                      <div className="flex items-center gap-2 px-3 py-2 bg-white/60 rounded-lg backdrop-blur-sm">
+                        <Users className="w-5 h-5 text-green-500" />
+                        <span className="text-sm font-semibold text-gray-800">Groups of 3+</span>
+                      </div>
+                      <div className="flex items-center gap-2 px-3 py-2 bg-white/60 rounded-lg backdrop-blur-sm">
+                        <GlassWater className="w-5 h-5 text-emerald-500" />
+                        <span className="text-sm font-semibold text-gray-800">Free Mojito Each</span>
                       </div>
                     </div>
                   </div>
                 </div>
 
-                {/* Overview Content */}
-                <div className="space-y-4 mb-6">
-                  <p className="text-lg text-gray-700 leading-relaxed">
-                    🎮 <strong>End your gaming session with a chance to save!</strong> Roll the dice at checkout—if you get a <strong className="text-red-600">1</strong>, you'll get <strong className="text-yellow-600">1 hour FREE</strong> deducted from your session bill! <strong>Example:</strong> Play 2 hours, roll a 1, pay for only 1 hour!
-                  </p>
-                  
-                  <div className="flex flex-wrap gap-3">
-                    <div className="flex items-center gap-2 px-3 py-2 bg-white/60 rounded-lg backdrop-blur-sm">
-                      <Gift className="w-5 h-5 text-red-500" />
-                      <span className="text-sm font-semibold text-gray-800">Any Platform</span>
+                {/* Dice Roll Challenge */}
+                <div className="mb-6">
+                  <div className="flex items-start justify-between mb-4">
+                    <div className="flex items-center gap-3">
+                      <motion.div
+                        animate={{ rotate: [0, 10, -10, 0] }}
+                        transition={{ duration: 2, repeat: Infinity, repeatDelay: 3 }}
+                        className="w-16 h-16 rounded-xl bg-gradient-to-br from-red-500 to-red-700 flex items-center justify-center shadow-lg"
+                      >
+                        <Dices className="w-10 h-10 text-white" />
+                      </motion.div>
+                      <div>
+                        <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-1">
+                          🎲 Dice Roll Challenge
+                        </h3>
+                        <div className="flex items-center gap-2 text-sm text-gray-600">
+                          <Calendar className="w-4 h-4" />
+                          <span className="font-semibold text-red-600">Roll a 1, Get 1 Hour FREE!</span>
+                        </div>
+                      </div>
                     </div>
-                    <div className="flex items-center gap-2 px-3 py-2 bg-white/60 rounded-lg backdrop-blur-sm">
-                      <Dices className="w-5 h-5 text-yellow-500" />
-                      <span className="text-sm font-semibold text-gray-800">One Roll Per Session</span>
+                  </div>
+
+                  {/* Overview Content */}
+                  <div className="space-y-4">
+                    <p className="text-lg text-gray-700 leading-relaxed">
+                      🎮 <strong>End your gaming session with a chance to save!</strong> Roll the dice at checkout—if you get a <strong className="text-red-600">1</strong>, you'll get <strong className="text-yellow-600">1 hour FREE</strong> deducted from your session bill! <strong>Example:</strong> Play 2 hours, roll a 1, pay for only 1 hour!
+                    </p>
+                    
+                    <div className="flex flex-wrap gap-3">
+                      <div className="flex items-center gap-2 px-3 py-2 bg-white/60 rounded-lg backdrop-blur-sm">
+                        <Gift className="w-5 h-5 text-red-500" />
+                        <span className="text-sm font-semibold text-gray-800">Any Platform</span>
+                      </div>
+                      <div className="flex items-center gap-2 px-3 py-2 bg-white/60 rounded-lg backdrop-blur-sm">
+                        <Dices className="w-5 h-5 text-yellow-500" />
+                        <span className="text-sm font-semibold text-gray-800">One Roll Per Session</span>
+                      </div>
                     </div>
                   </div>
                 </div>
