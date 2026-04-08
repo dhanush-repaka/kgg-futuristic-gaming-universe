@@ -7,21 +7,15 @@ import KGGGallery from "./KGGGallery";
 import KGGVRSpotlight from "./KGGVRSpotlight";
 import KGGCTA from "./KGGCTA";
 import KGGFooter from "./KGGFooter";
-import KGGParallaxScene from "./KGGParallaxScene";
-import KGGScrollProgress from "./KGGScrollProgress";
-import KGGScrollShowcase from "./KGGScrollShowcase";
 
 export default function KGGLandingPage() {
   return (
     <div className="relative min-h-screen overflow-x-clip bg-slate-950 text-slate-100">
-      <KGGScrollProgress />
-      <KGGParallaxScene />
-      <div className="pointer-events-none absolute inset-0 -z-20 bg-[linear-gradient(to_bottom,rgba(15,23,42,0.96),rgba(2,6,23,1))]" />
+      <div className="pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(to_bottom,rgba(15,23,42,0.96),rgba(2,6,23,1))]" />
       <KGGNavbar />
       <main>
         <KGGHero />
         <KGGOfferings />
-        <KGGScrollShowcase />
         <KGGHighlights />
         <KGGPricing />
         <KGGGallery />
