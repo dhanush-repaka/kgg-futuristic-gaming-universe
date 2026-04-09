@@ -1,4 +1,8 @@
+"use client";
+
 import Reveal from "./Reveal";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
 
 const plans = [
   {
@@ -26,35 +30,63 @@ const plans = [
 ];
 
 export default function KGGPricing() {
+  const containerRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end start"],
+  });
+
+  const scale = useTransform(scrollYProgress, [0, 0.5, 1], [0.95, 1, 0.95]);
+
   return (
-    <section id="pricing" className="mx-auto w-full max-w-7xl px-5 py-18 md:px-8">
+    <section ref={containerRef} id="pricing" className="mx-auto w-full max-w-7xl px-5 py-24 md:px-8 perspective-1000">
       <Reveal>
-        <h2 className="text-3xl font-semibold text-white md:text-4xl">Sessions & Pricing</h2>
-        <p className="mt-3 max-w-2xl text-slate-300">Flexible plans for solo players, squad battles, and unforgettable VR adventures.</p>
+        <h2 className="text-4xl font-semibold tracking-tight text-white md:text-5xl">Sessions & Pricing.</h2>
+        <p className="mt-4 max-w-2xl text-lg text-slate-400">Flexible plans for solo players, squad battles, and unforgettable VR adventures.</p>
       </Reveal>
 
-      <div className="mt-10 grid gap-5 lg:grid-cols-3">
+      <motion.div 
+        style={{ scale }}
+        className="mt-16 grid gap-6 lg:grid-cols-3 transform-style-3d"
+      >
         {plans.map((plan, idx) => (
-          <Reveal key={plan.title} delay={idx * 0.07}>
-            <article
-              className={`h-full rounded-2xl border p-6 backdrop-blur-xl transition hover:-translate-y-1 ${
-                plan.featured
-                  ? "border-cyan-300/45 bg-cyan-300/8 shadow-[0_0_35px_rgba(34,211,238,0.25)]"
-                  : "border-white/12 bg-white/5"
-              }`}
-            >
-              <h3 className="text-lg font-semibold text-slate-100">{plan.title}</h3>
-              <p className="mt-4 text-4xl font-bold text-white">{plan.price}<span className="text-base font-medium text-slate-400">{plan.unit}</span></p>
-              <p className="mt-3 text-sm text-slate-300">{plan.description}</p>
-              <ul className="mt-5 space-y-2 text-sm text-slate-200">
+          <motion.div
+            key={plan.title}
+            initial={{ opacity: 0, y: 50, rotateX: 10 }}
+            whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.8, delay: idx * 0.1, ease: "easeOut" }}
+            whileHover={{ y: -10, z: 20, scale: 1.02 }}
+            className={`group relative flex h-full flex-col justify-between rounded-xl border p-8 backdrop-blur-md transform-style-3d ${
+              plan.featured
+                ? "border-white/30 bg-white/10"
+                : "border-white/10 bg-white/5"
+            }`}
+          >
+            <div>
+              <h3 className="text-xl font-medium text-white">{plan.title}</h3>
+              <p className="mt-4 flex items-baseline gap-2">
+                <span className="text-4xl font-semibold text-white">{plan.price}</span>
+                <span className="text-sm font-medium text-slate-400">{plan.unit}</span>
+              </p>
+              <p className="mt-4 text-sm leading-relaxed text-slate-400">{plan.description}</p>
+              <ul className="mt-8 space-y-3">
                 {plan.features.map((feature) => (
-                  <li key={feature}>• {feature}</li>
+                  <li key={feature} className="flex items-center gap-3 text-sm text-slate-300">
+                    <span className="flex h-1.5 w-1.5 rounded-full bg-white/50" />
+                    {feature}
+                  </li>
                 ))}
               </ul>
-            </article>
-          </Reveal>
+            </div>
+            {plan.featured && (
+              <div className="absolute -top-3 right-6 rounded-full bg-white px-3 py-1 text-xs font-semibold text-black">
+                Popular
+              </div>
+            )}
+          </motion.div>
         ))}
-      </div>
+      </motion.div>
     </section>
   );
 }

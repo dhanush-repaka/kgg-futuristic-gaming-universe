@@ -1,4 +1,8 @@
+"use client";
+
 import Reveal from "./Reveal";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
 
 const items = [
   "Console Arena",
@@ -10,29 +14,44 @@ const items = [
 ];
 
 export default function KGGGallery() {
+  const containerRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end start"],
+  });
+
+  const rotateX = useTransform(scrollYProgress, [0, 1], [-15, 15]);
+
   return (
-    <section id="gallery" className="border-y border-white/10 bg-slate-900/40 py-18">
+    <section ref={containerRef} id="gallery" className="py-24 perspective-1000">
       <div className="mx-auto w-full max-w-7xl px-5 md:px-8">
         <Reveal>
-          <h2 className="text-3xl font-semibold text-white md:text-4xl">Gallery Showcase</h2>
-          <p className="mt-3 max-w-2xl text-slate-300">A premium-ready gallery layout prepared for your real venue photos, events, and launch promos.</p>
+          <h2 className="text-4xl font-semibold tracking-tight text-white md:text-5xl">Our Spaces.</h2>
+          <p className="mt-4 max-w-2xl text-lg text-slate-400">A look inside the minimalist sanctuary built for focused gaming and connection.</p>
         </Reveal>
 
-        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <motion.div 
+          style={{ rotateX }}
+          className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 transform-style-3d"
+        >
           {items.map((label, idx) => (
-            <Reveal key={label} delay={idx * 0.06}>
-              <figure className="group relative min-h-52 overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-cyan-500/12 via-slate-900/80 to-violet-500/12 p-5">
-                <div className="absolute -right-8 -top-8 h-28 w-28 rounded-full bg-cyan-400/18 blur-2xl transition group-hover:scale-125" />
-                <div className="absolute -bottom-10 -left-6 h-28 w-28 rounded-full bg-violet-400/18 blur-2xl" />
-                <div className="relative">
-                  <p className="text-xs tracking-[0.2em] text-cyan-200 uppercase">Placeholder Slot</p>
-                  <h3 className="mt-3 text-xl font-semibold text-white">{label}</h3>
-                  <p className="mt-2 text-sm text-slate-300">Drop your high-resolution branded image/video still here.</p>
-                </div>
-              </figure>
-            </Reveal>
+            <motion.div
+              key={label}
+              initial={{ opacity: 0, z: -50 }}
+              whileInView={{ opacity: 1, z: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.8, delay: idx * 0.1, ease: "easeOut" }}
+              whileHover={{ scale: 1.05, z: 50 }}
+              className="group relative min-h-64 overflow-hidden rounded-xl border border-white/10 bg-white/5 p-6 backdrop-blur-md transform-style-3d cursor-default flex flex-col justify-end"
+            >
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent z-0" />
+              <div className="relative z-10 transition-transform duration-500 group-hover:-translate-y-2">
+                <p className="text-xs font-semibold tracking-widest text-slate-400 uppercase">Gallery Slot</p>
+                <h3 className="mt-2 text-xl font-medium text-white">{label}</h3>
+              </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

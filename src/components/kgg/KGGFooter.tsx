@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Reveal from "./Reveal";
 
 const links = [
   { href: "#home", label: "Home" },
@@ -10,21 +11,21 @@ const links = [
 
 export default function KGGFooter() {
   return (
-    <footer id="contact" className="border-t border-white/10 bg-slate-950/70">
-      <div className="mx-auto grid w-full max-w-7xl gap-10 px-5 py-12 md:grid-cols-3 md:px-8">
+    <footer id="contact" className="border-t border-white/10 bg-black">
+      <Reveal className="mx-auto grid w-full max-w-7xl gap-12 px-5 py-20 md:grid-cols-3 md:px-8">
         <div>
-          <h3 className="text-lg font-semibold text-white">Karthikeya&apos;s Games Galaxy</h3>
-          <p className="mt-3 text-sm text-slate-300">
-            Premium gaming and entertainment hub for friends, families, and casual explorers.
+          <h3 className="text-xl font-medium tracking-tight text-white">Karthikeya&apos;s Games Galaxy</h3>
+          <p className="mt-4 text-sm leading-relaxed text-slate-400">
+            A minimalist sanctuary designed for next-gen console gaming, immersive VR, and meaningful connections.
           </p>
         </div>
 
         <div>
-          <h4 className="text-sm font-semibold tracking-wide text-cyan-200 uppercase">Navigate</h4>
-          <ul className="mt-3 space-y-2 text-sm text-slate-300">
+          <h4 className="text-xs font-semibold tracking-widest text-slate-500 uppercase">Navigate</h4>
+          <ul className="mt-6 space-y-3 text-sm text-slate-400">
             {links.map((link) => (
               <li key={link.label}>
-                <Link href={link.href} className="transition hover:text-cyan-200">
+                <Link href={link.href} className="transition hover:text-white">
                   {link.label}
                 </Link>
               </li>
@@ -33,17 +34,17 @@ export default function KGGFooter() {
         </div>
 
         <div>
-          <h4 className="text-sm font-semibold tracking-wide text-cyan-200 uppercase">Contact</h4>
-          <ul className="mt-3 space-y-2 text-sm text-slate-300">
-            <li>Phone: +91-XXXXXXXXXX</li>
-            <li>Email: hello@kggaming.example</li>
+          <h4 className="text-xs font-semibold tracking-widest text-slate-500 uppercase">Contact</h4>
+          <ul className="mt-6 space-y-3 text-sm text-slate-400">
+            <li>Phone: +91 99999 99999</li>
+            <li>Email: connect@kgg.lounge</li>
             <li>Location: Tirupati, Andhra Pradesh</li>
-            <li className="pt-2 text-slate-400">Social: Instagram • YouTube • WhatsApp</li>
+            <li className="pt-4 text-xs font-medium text-slate-300">Instagram • YouTube • WhatsApp</li>
           </ul>
         </div>
-      </div>
-      <div className="border-t border-white/10 px-5 py-4 text-center text-xs text-slate-400 md:px-8">
-        © {new Date().getFullYear()} KGG — Karthikeya&apos;s Games Galaxy. All rights reserved.
+      </Reveal>
+      <div className="border-t border-white/5 py-8 text-center text-xs font-medium text-slate-500">
+        © {new Date().getFullYear()} KGG. All rights reserved.
       </div>
     </footer>
   );
