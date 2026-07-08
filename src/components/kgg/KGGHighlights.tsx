@@ -6,12 +6,12 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 
 const highlights = [
-  { title: "Premium Setup", icon: Sparkles, copy: "Top-tier consoles, tuned displays, and low-latency gameplay environments." },
-  { title: "VR Adventures", icon: Zap, copy: "Immersive Meta Quest sessions crafted for excitement and first-time comfort." },
-  { title: "For Friends & Family", icon: Users, copy: "Socially designed zones for squads, families, and casual group fun." },
-  { title: "Comfort-First Space", icon: Armchair, copy: "Relaxed seating, clean environment, and an atmosphere you can stay in for hours." },
-  { title: "Trusted Experience", icon: ShieldCheck, copy: "A modern entertainment hub focused on safety, quality, and unforgettable sessions." },
-];
+  { title: "Premium Setup", icon: Sparkles, copy: "Top-tier consoles, tuned displays, and low-latency gameplay environments.", accent: "ember" },
+  { title: "VR Adventures", icon: Zap, copy: "Immersive Meta Quest sessions crafted for excitement and first-time comfort.", accent: "electric" },
+  { title: "For Friends & Family", icon: Users, copy: "Socially designed zones for squads, families, and casual group fun.", accent: "ember" },
+  { title: "Comfort-First Space", icon: Armchair, copy: "Relaxed seating, clean environment, and an atmosphere you can stay in for hours.", accent: "electric" },
+  { title: "Trusted Experience", icon: ShieldCheck, copy: "A modern entertainment hub focused on safety, quality, and unforgettable sessions.", accent: "ember" },
+] as const;
 
 export default function KGGHighlights() {
   const containerRef = useRef<HTMLElement>(null);
@@ -26,15 +26,21 @@ export default function KGGHighlights() {
     <section ref={containerRef} className="py-24 border-y border-white/5 perspective-1000">
       <div className="mx-auto w-full max-w-7xl px-5 md:px-8">
         <Reveal>
-          <h2 className="text-4xl font-semibold tracking-tight text-white md:text-5xl">Why KGG Works.</h2>
+          <span className="font-mono text-xs font-medium uppercase tracking-[0.16em] text-ember-soft">
+            Why It Works
+          </span>
+          <h2 className="mt-4 font-display text-4xl font-extrabold tracking-tight text-ink md:text-5xl">
+            Why KGG Works.
+          </h2>
         </Reveal>
-        
-        <motion.div 
+
+        <motion.div
           style={{ rotateX }}
           className="mt-16 grid gap-6 md:grid-cols-2 lg:grid-cols-3 transform-style-3d"
         >
           {highlights.map((item, idx) => {
             const Icon = item.icon;
+            const isElectric = item.accent === "electric";
             return (
               <motion.div
                 initial={{ opacity: 0, z: -50 }}
@@ -42,12 +48,13 @@ export default function KGGHighlights() {
                 viewport={{ once: true, margin: "-100px" }}
                 transition={{ duration: 0.8, delay: idx * 0.1, ease: "easeOut" }}
                 whileHover={{ z: 20, scale: 1.02 }}
-                key={item.title} 
-                className="group rounded-xl border border-white/10 bg-white/5 p-8 transition-colors hover:bg-white/10 transform-style-3d"
+                key={item.title}
+                className={`hud-frame ${isElectric ? "electric" : ""} group rounded-xl border border-white/10 bg-surface p-8 transition-colors hover:bg-white/[0.07] transform-style-3d`}
               >
-                <Icon className="h-6 w-6 text-white group-hover:text-slate-300" />
-                <h3 className="mt-6 text-lg font-medium text-white">{item.title}</h3>
-                <p className="mt-3 text-sm leading-relaxed text-slate-400">{item.copy}</p>
+                <div className="hud-c2" />
+                <Icon className={`h-6 w-6 ${isElectric ? "text-electric-soft" : "text-ember-soft"}`} />
+                <h3 className="mt-6 font-display text-lg font-bold text-ink">{item.title}</h3>
+                <p className="mt-3 text-sm leading-relaxed text-muted">{item.copy}</p>
               </motion.div>
             );
           })}

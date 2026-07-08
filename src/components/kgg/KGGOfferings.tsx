@@ -1,73 +1,100 @@
 "use client";
 
-import { Gamepad2, Joystick, Sword, Radar, Dices } from "lucide-react";
+import { Gamepad2, Joystick, Sword, Dices, Radar } from "lucide-react";
 import { motion } from "framer-motion";
-import { useRef } from "react";
 import Reveal from "./Reveal";
 
-const offerings = [
-  {
-    title: "PlayStation",
-    description: "High-performance PlayStation sessions with premium displays.",
-    icon: Gamepad2,
-  },
-  {
-    title: "Xbox",
-    description: "Fast-paced Xbox gameplay with curated multiplayer experiences.",
-    icon: Joystick,
-  },
-  {
-    title: "Nintendo Switch",
-    description: "Social-friendly sessions packed with party titles and co-op fun.",
-    icon: Sword,
-  },
-  {
-    title: "Meta Quest VR",
-    description: "Step into breathtaking VR adventures and interactive experiences.",
-    icon: Radar,
-  },
-  {
-    title: "Board Games",
-    description: "Classic and modern tabletop picks for strategy and relaxed hangouts.",
-    icon: Dices,
-  },
+const consoleTags = [
+  { label: "PS5", icon: Gamepad2 },
+  { label: "Series X", icon: Joystick },
+  { label: "Switch", icon: Sword },
+  { label: "Board Games", icon: Dices },
 ];
 
 export default function KGGOfferings() {
   return (
     <section id="games" className="mx-auto w-full max-w-7xl px-5 py-24 md:px-8 perspective-1000">
       <Reveal>
-        <h2 className="text-4xl font-semibold tracking-tight text-white md:text-5xl">Our Platforms.</h2>
-        <p className="mt-4 max-w-2xl text-lg text-slate-400">
-          From console to VR and casual tabletop, everything you need for premium gaming.
+        <span className="font-mono text-xs font-medium uppercase tracking-[0.16em] text-electric-soft">
+          Select Your World
+        </span>
+        <h2 className="mt-4 font-display text-4xl font-extrabold tracking-tight text-ink md:text-5xl">
+          Every platform has a home turf.
+        </h2>
+        <p className="mt-4 max-w-2xl text-lg text-muted">
+          Instead of one flat games grid, the lounge splits into two worlds &mdash; matching how it&apos;s actually laid out on the floor.
         </p>
       </Reveal>
 
-      <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 transform-style-3d">
-        {offerings.map((item, index) => {
-          const Icon = item.icon;
-          return (
-            <motion.div
-              key={item.title}
-              initial={{ opacity: 0, y: 50, rotateX: -10 }}
-              whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.8, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
-              whileHover={{ rotateY: 5, rotateX: -5, scale: 1.02 }}
-              className="group relative flex h-full flex-col justify-between rounded-xl border border-white/10 bg-white/5 p-8 backdrop-blur-md transform-style-3d cursor-default"
-            >
-              <div>
-                <motion.div 
-                  className="mb-8 inline-flex rounded-lg bg-white/10 p-3 text-white transition-colors group-hover:bg-white group-hover:text-black"
+      <div className="mt-16 grid gap-6 lg:grid-cols-2 transform-style-3d">
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          className="hud-frame group relative flex min-h-[380px] flex-col justify-end overflow-hidden rounded-2xl border border-white/10 bg-surface p-10"
+        >
+          <div className="hud-c2" />
+          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(120%_100%_at_100%_0%,rgba(255,90,31,0.16),transparent_60%)] opacity-80 transition-opacity duration-500 group-hover:opacity-100" />
+          <span className="absolute left-8 top-8 rounded-full border border-white/15 bg-base/50 px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.14em] text-ember-soft">
+            Console Arena
+          </span>
+          <div className="relative">
+            <h3 className="font-display text-2xl font-bold text-ink md:text-3xl">
+              PlayStation &middot; Xbox &middot; Switch
+            </h3>
+            <p className="mt-3 max-w-md text-sm leading-relaxed text-muted">
+              High-performance rigs, premium displays, and curated multiplayer &mdash; from pit-lane racing to party-night co-op, plus tabletop for when you want to look each other in the eye.
+            </p>
+            <div className="mt-6 flex flex-wrap gap-3">
+              {consoleTags.map((tag) => {
+                const Icon = tag.icon;
+                return (
+                  <span
+                    key={tag.label}
+                    className="inline-flex items-center gap-2 rounded-md border border-white/10 bg-base/40 px-3 py-2 font-mono text-xs text-muted"
+                  >
+                    <Icon className="h-3.5 w-3.5 text-ember-soft" />
+                    {tag.label}
+                  </span>
+                );
+              })}
+            </div>
+          </div>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.8, delay: 0.12, ease: [0.16, 1, 0.3, 1] }}
+          className="hud-frame electric group relative flex min-h-[380px] flex-col justify-end overflow-hidden rounded-2xl border border-white/10 bg-surface p-10"
+        >
+          <div className="hud-c2" />
+          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(120%_100%_at_100%_0%,rgba(61,169,252,0.16),transparent_60%)] opacity-80 transition-opacity duration-500 group-hover:opacity-100" />
+          <span className="absolute left-8 top-8 rounded-full border border-white/15 bg-base/50 px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.14em] text-electric-soft">
+            VR Worlds
+          </span>
+          <div className="relative">
+            <h3 className="font-display text-2xl font-bold text-ink md:text-3xl">
+              Meta Quest Signature
+            </h3>
+            <p className="mt-3 max-w-md text-sm leading-relaxed text-muted">
+              Guided onboarding into rhythm, action, and simulation worlds &mdash; built for first-timers who&apos;ve never worn a headset and regulars chasing a high score.
+            </p>
+            <div className="mt-6 flex flex-wrap gap-3">
+              {["Beat Saber", "Arenas", "Simulation", "Family-friendly"].map((label) => (
+                <span
+                  key={label}
+                  className="inline-flex items-center gap-2 rounded-md border border-white/10 bg-base/40 px-3 py-2 font-mono text-xs text-muted"
                 >
-                  <Icon className="h-6 w-6" />
-                </motion.div>
-                <h3 className="text-xl font-medium text-white">{item.title}</h3>
-                <p className="mt-3 text-sm leading-relaxed text-slate-400">{item.description}</p>
-              </div>
-            </motion.div>
-          );
-        })}
+                  <Radar className="h-3.5 w-3.5 text-electric-soft" />
+                  {label}
+                </span>
+              ))}
+            </div>
+          </div>
+        </motion.div>
       </div>
     </section>
   );

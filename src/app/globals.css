@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
-
 @import "tailwindcss";
 @import "tw-animate-css";
 
@@ -8,22 +6,53 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: 'Inter', sans-serif;
-  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-  
+  --font-sans: var(--font-body);
+  --font-display: var(--font-display);
+  --font-mono: var(--font-mono);
+
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
+
+  --color-base: var(--kgg-base);
+  --color-base-2: var(--kgg-base-2);
+  --color-surface: var(--kgg-surface);
+  --color-surface-2: var(--kgg-surface-2);
+  --color-ink: var(--kgg-ink);
+  --color-muted: var(--kgg-muted);
+  --color-muted-2: var(--kgg-muted-2);
+  --color-ember: var(--kgg-ember);
+  --color-ember-soft: var(--kgg-ember-soft);
+  --color-ember-deep: var(--kgg-ember-deep);
+  --color-electric: var(--kgg-electric);
+  --color-electric-soft: var(--kgg-electric-soft);
+  --color-electric-deep: var(--kgg-electric-deep);
 }
 
 :root {
-  /* Minimalist Deep Dark Theme */
-  --background: oklch(0.12 0.01 270); /* Very dark subtle blue-gray */
-  --foreground: oklch(0.98 0 0); /* Pure white text */
-  --border: oklch(0.25 0.01 270);
-  --input: oklch(0.25 0.01 270);
-  --ring: oklch(0.8 0 0);
-  --radius: 0.5rem;
+  /* KGG Design System — Cinematic AAA Game World (see DESIGN.md) */
+  --kgg-base: #0a0e14;
+  --kgg-base-2: #06080d;
+  --kgg-surface: #12161f;
+  --kgg-surface-2: #191f2c;
+  --kgg-ink: #f0f3fa;
+  --kgg-muted: #8b93a7;
+  --kgg-muted-2: #5b6478;
+  --kgg-ember: #ff5a1f;
+  --kgg-ember-soft: #ffb37e;
+  --kgg-ember-deep: #c23f12;
+  --kgg-electric: #3da9fc;
+  --kgg-electric-soft: #9ed4ff;
+  --kgg-electric-deep: #1e6fb8;
+  --kgg-line: rgba(240, 243, 250, 0.09);
+  --kgg-line-strong: rgba(240, 243, 250, 0.16);
+
+  --background: var(--kgg-base);
+  --foreground: var(--kgg-ink);
+  --border: var(--kgg-line);
+  --input: var(--kgg-line);
+  --ring: var(--kgg-electric);
+  --radius: 0.625rem;
 }
 
 @layer base {
@@ -32,21 +61,21 @@
   }
   html {
     scroll-behavior: smooth;
-    background-color: #050505; /* Fallback */
+    background-color: var(--kgg-base);
   }
   body {
     @apply bg-background text-foreground;
-    font-family: 'Inter', sans-serif;
+    font-family: var(--font-body), sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
     overflow-x: hidden;
   }
-  
+
   * {
     -webkit-tap-highlight-color: transparent;
   }
-  
+
   @media (prefers-reduced-motion: reduce) {
     *,
     *::before,
@@ -54,12 +83,13 @@
       animation-duration: 0.01ms !important;
       animation-iteration-count: 1 !important;
       transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
     }
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Geist', sans-serif;
-    letter-spacing: -0.02em;
+    font-family: var(--font-display), sans-serif;
+    letter-spacing: -0.01em;
   }
 
   .perspective-1000 {
@@ -68,6 +98,58 @@
 
   .transform-style-3d {
     transform-style: preserve-3d;
+  }
+
+  /* HUD corner-bracket motif — expands + brightens on hover/focus */
+  .hud-frame {
+    position: relative;
+  }
+  .hud-frame::before,
+  .hud-frame::after,
+  .hud-frame .hud-c2::before,
+  .hud-frame .hud-c2::after {
+    content: "";
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    border-color: var(--kgg-ember-soft);
+    opacity: 0.45;
+    pointer-events: none;
+    transition: width 0.25s ease, height 0.25s ease, opacity 0.25s ease;
+  }
+  .hud-frame::before { top: 0; left: 0; border-top: 2px solid; border-left: 2px solid; }
+  .hud-frame::after { top: 0; right: 0; border-top: 2px solid; border-right: 2px solid; }
+  .hud-frame .hud-c2::before { bottom: 0; left: 0; border-bottom: 2px solid; border-left: 2px solid; }
+  .hud-frame .hud-c2::after { bottom: 0; right: 0; border-bottom: 2px solid; border-right: 2px solid; }
+  .hud-frame:hover::before, .hud-frame:hover::after,
+  .hud-frame:hover .hud-c2::before, .hud-frame:hover .hud-c2::after,
+  .hud-frame:focus-within::before, .hud-frame:focus-within::after,
+  .hud-frame:focus-within .hud-c2::before, .hud-frame:focus-within .hud-c2::after {
+    width: 26px;
+    height: 26px;
+    opacity: 0.9;
+  }
+  .hud-frame.electric::before,
+  .hud-frame.electric::after,
+  .hud-frame.electric .hud-c2::before,
+  .hud-frame.electric .hud-c2::after {
+    border-color: var(--kgg-electric-soft);
+  }
+
+  /* Scanline divider between major sections */
+  .scanline {
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      var(--kgg-line-strong) 20%,
+      var(--kgg-line-strong) 80%,
+      transparent
+    );
+  }
+
+  .tabular {
+    font-variant-numeric: tabular-nums;
   }
 }
 

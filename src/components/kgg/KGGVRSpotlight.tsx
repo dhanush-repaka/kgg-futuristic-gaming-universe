@@ -17,10 +17,12 @@ export default function KGGVRSpotlight() {
   return (
     <section ref={containerRef} id="vr" className="mx-auto w-full max-w-7xl px-5 py-24 md:px-8 perspective-1000">
       <Reveal>
-        <motion.div 
+        <motion.div
           style={{ rotateY }}
-          className="relative overflow-hidden rounded-2xl border border-white/20 bg-white/5 p-8 md:p-16 backdrop-blur-md transform-style-3d shadow-2xl"
+          className="hud-frame electric relative overflow-hidden rounded-2xl border border-electric/25 bg-surface p-8 md:p-16 transform-style-3d shadow-2xl"
         >
+          <div className="hud-c2" />
+          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(60%_60%_at_85%_0%,rgba(61,169,252,0.18),transparent_60%)]" />
           <div className="relative grid gap-12 lg:grid-cols-[1.2fr_0.8fr] lg:items-center transform-style-3d">
             <motion.div
               initial={{ opacity: 0, z: -50 }}
@@ -28,32 +30,32 @@ export default function KGGVRSpotlight() {
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
             >
-              <p className="text-xs font-semibold tracking-widest text-slate-400 uppercase">VR Signature Experience</p>
-              <h2 className="mt-4 text-4xl font-semibold tracking-tight text-white md:text-5xl">Meta Quest Worlds.</h2>
-              <p className="mt-6 text-lg leading-relaxed text-slate-400">
+              <p className="font-mono text-xs font-semibold tracking-[0.16em] text-electric-soft uppercase">VR Signature Experience</p>
+              <h2 className="mt-4 font-display text-4xl font-extrabold tracking-tight text-ink md:text-5xl">Meta Quest Worlds.</h2>
+              <p className="mt-6 text-lg leading-relaxed text-muted">
                 Enter immersive arenas, action adventures, rhythm challenges, and simulation experiences crafted for presence and absolute adrenaline.
               </p>
               <Link
                 href="/booking"
-                className="mt-10 inline-flex rounded-full bg-white px-8 py-4 text-sm font-semibold text-black transition hover:bg-slate-200 hover:scale-[1.02]"
+                className="mt-10 inline-flex rounded-md bg-gradient-to-r from-electric to-electric-deep px-8 py-4 text-sm font-bold text-[#04121f] transition hover:brightness-110 hover:scale-[1.02]"
               >
                 Book Session
               </Link>
             </motion.div>
-            
-            <motion.div 
+
+            <motion.div
               initial={{ opacity: 0, x: 50, z: -20 }}
               whileInView={{ opacity: 1, x: 0, z: 20 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="rounded-xl border border-white/10 bg-black/40 p-8 backdrop-blur-xl transform-style-3d"
+              className="rounded-xl border border-white/10 bg-base/40 p-8 backdrop-blur-xl transform-style-3d"
             >
-              <p className="text-sm font-medium text-white">Included in VR Pass</p>
-              <ul className="mt-6 space-y-4 text-sm text-slate-400">
-                <li className="flex items-center gap-3"><span className="h-1.5 w-1.5 rounded-full bg-white/50" /> Guided onboarding</li>
-                <li className="flex items-center gap-3"><span className="h-1.5 w-1.5 rounded-full bg-white/50" /> Multi-genre library</li>
-                <li className="flex items-center gap-3"><span className="h-1.5 w-1.5 rounded-full bg-white/50" /> Premium hygiene setup</li>
-                <li className="flex items-center gap-3"><span className="h-1.5 w-1.5 rounded-full bg-white/50" /> Family-friendly worlds</li>
+              <p className="font-mono text-sm font-medium text-ink">Included in VR Pass</p>
+              <ul className="mt-6 space-y-4 text-sm text-muted">
+                <li className="flex items-center gap-3"><span className="h-1.5 w-1.5 rounded-full bg-electric" /> Guided onboarding</li>
+                <li className="flex items-center gap-3"><span className="h-1.5 w-1.5 rounded-full bg-electric" /> Multi-genre library</li>
+                <li className="flex items-center gap-3"><span className="h-1.5 w-1.5 rounded-full bg-electric" /> Premium hygiene setup</li>
+                <li className="flex items-center gap-3"><span className="h-1.5 w-1.5 rounded-full bg-electric" /> Family-friendly worlds</li>
               </ul>
             </motion.div>
           </div>

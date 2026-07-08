@@ -124,8 +124,8 @@ export default function FuturisticCursor() {
           transition: "opacity 0.3s",
         }}
       >
-        <div className="w-full h-full rounded-full bg-white border-2 border-purple-400 shadow-[0_0_20px_rgba(168,85,247,0.8)]" />
-        <div className="absolute top-1/2 left-1/2 w-2 h-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-purple-400" />
+        <div className="w-full h-full rounded-full bg-white border-2 border-ember shadow-[0_0_20px_rgba(255,90,31,0.7)]" />
+        <div className="absolute top-1/2 left-1/2 w-2 h-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-ember" />
       </div>
 
       {/* Trail Cursor */}
@@ -138,7 +138,7 @@ export default function FuturisticCursor() {
           transition: "opacity 0.3s",
         }}
       >
-        <div className="w-full h-full rounded-full bg-gradient-to-r from-purple-400/30 via-pink-400/30 to-cyan-400/30 blur-sm border border-purple-300/50" />
+        <div className="w-full h-full rounded-full bg-gradient-to-r from-ember/30 via-ember-soft/20 to-electric/30 blur-sm border border-white/20" />
       </div>
 
       {/* Particles */}
@@ -146,7 +146,7 @@ export default function FuturisticCursor() {
         {particles.map((particle) => (
           <div
             key={particle.id}
-            className="absolute w-1 h-1 rounded-full bg-purple-400"
+            className="absolute w-1 h-1 rounded-full bg-ember"
             style={{
               left: `${particle.x}px`,
               top: `${particle.y}px`,
