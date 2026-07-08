@@ -5,12 +5,12 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 
 const items = [
-  { zone: "Console Arena", note: "wide shot, rig row lit warm", accent: "ember" },
-  { zone: "VR Battle Pod", note: "player mid-session, cool rim light", accent: "electric" },
-  { zone: "Squad Lounge", note: "group candid, ember glow", accent: "ember" },
-  { zone: "Board Game Deck", note: "overhead, tabletop detail", accent: "ember" },
-  { zone: "Streaming Corner", note: "rig + ring light detail", accent: "electric" },
-  { zone: "Tournament Stage", note: "crowd POV, dramatic low angle", accent: "electric" },
+  { zone: "Console Arena", note: "wide shot, rig row lit warm", accent: "ember", span: "lg:col-span-4 lg:row-span-2" },
+  { zone: "VR Battle Pod", note: "player mid-session, cool rim light", accent: "electric", span: "lg:col-span-2" },
+  { zone: "Squad Lounge", note: "group candid, ember glow", accent: "ember", span: "lg:col-span-2" },
+  { zone: "Board Game Deck", note: "overhead, tabletop detail", accent: "ember", span: "lg:col-span-3" },
+  { zone: "Streaming Corner", note: "rig + ring light detail", accent: "electric", span: "lg:col-span-3" },
+  { zone: "Tournament Stage", note: "crowd POV, dramatic low angle", accent: "electric", span: "lg:col-span-6" },
 ] as const;
 
 export default function KGGGallery() {
@@ -37,9 +37,12 @@ export default function KGGGallery() {
           </p>
         </Reveal>
 
+        {/* Bento layout: Console Arena leads as a large tile, Tournament
+            Stage closes as a full-width cinematic banner -- varying tile
+            sizes instead of a flat symmetric grid. */}
         <motion.div
           style={{ rotateX }}
-          className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 transform-style-3d"
+          className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-6 lg:grid-flow-dense lg:auto-rows-[minmax(160px,auto)] transform-style-3d"
         >
           {items.map((item, idx) => (
             <motion.div
@@ -48,8 +51,8 @@ export default function KGGGallery() {
               whileInView={{ opacity: 1, z: 0 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.8, delay: idx * 0.1, ease: "easeOut" }}
-              whileHover={{ scale: 1.05, z: 50 }}
-              className={`hud-frame ${item.accent === "electric" ? "electric" : ""} group relative min-h-64 overflow-hidden rounded-xl border border-white/10 bg-gradient-to-br from-surface-2 to-base-2 p-6 transform-style-3d cursor-default flex flex-col justify-between`}
+              whileHover={{ scale: 1.03, z: 50 }}
+              className={`hud-frame ${item.accent === "electric" ? "electric" : ""} ${item.span} group relative min-h-64 overflow-hidden rounded-xl border border-white/10 bg-gradient-to-br from-surface-2 to-base-2 p-6 transform-style-3d cursor-default flex flex-col justify-between`}
             >
               <div className="hud-c2" />
               <div
