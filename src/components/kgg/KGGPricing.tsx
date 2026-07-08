@@ -4,21 +4,13 @@ import Reveal from "./Reveal";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 
-const plans = [
+const sidePlans = [
   {
     title: "Quick Session",
     price: "₹299",
     unit: "/ hour",
     description: "Perfect for walk-ins and quick matches.",
     features: ["Any 1 console zone", "High-speed setup", "On-site support"],
-  },
-  {
-    title: "Squad Night",
-    price: "₹999",
-    unit: "/ 3 hours",
-    description: "Best value for friends and teams.",
-    features: ["Up to 4 players", "Console + board game access", "Priority slot booking"],
-    featured: true,
   },
   {
     title: "VR Signature",
@@ -28,6 +20,14 @@ const plans = [
     features: ["Curated VR game library", "Beginner guidance", "Photo-worthy moments"],
   },
 ];
+
+const featured = {
+  title: "Squad Night",
+  price: "₹999",
+  unit: "/ 3 hours",
+  description: "Best value for friends and teams — the pass most groups actually book.",
+  features: ["Up to 4 players", "Console + board game access", "Priority slot booking", "Free top-up snacks"],
+};
 
 export default function KGGPricing() {
   const containerRef = useRef<HTMLElement>(null);
@@ -52,48 +52,95 @@ export default function KGGPricing() {
 
       <div className="scanline mt-12" />
 
+      {/* Asymmetric layout: Squad Night is the pass most people book, so it
+          gets a dominant, elevated center card instead of three equal boxes. */}
       <motion.div
         style={{ scale }}
-        className="mt-12 grid gap-6 lg:grid-cols-3 transform-style-3d"
+        className="mt-12 grid items-center gap-6 lg:grid-cols-[0.82fr_1.05fr_0.82fr] transform-style-3d"
       >
-        {plans.map((plan, idx) => (
-          <motion.div
-            key={plan.title}
-            initial={{ opacity: 0, y: 50, rotateX: 10 }}
-            whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.8, delay: idx * 0.1, ease: "easeOut" }}
-            whileHover={{ y: -10, z: 20, scale: 1.02 }}
-            className={`hud-frame group relative flex h-full flex-col justify-between rounded-xl border p-8 transform-style-3d ${
-              plan.featured
-                ? "border-ember/40 bg-surface-2"
-                : "border-white/10 bg-surface"
-            }`}
-          >
-            <div className="hud-c2" />
-            <div>
-              <h3 className="font-display text-sm font-bold uppercase tracking-[0.06em] text-ink">{plan.title}</h3>
-              <p className="mt-5 flex items-baseline gap-2">
-                <span className="tabular font-mono text-4xl font-bold text-ink">{plan.price}</span>
-                <span className="font-mono text-xs text-muted-2">{plan.unit}</span>
-              </p>
-              <p className="mt-4 text-sm leading-relaxed text-muted">{plan.description}</p>
-              <ul className="mt-8 space-y-3">
-                {plan.features.map((feature) => (
-                  <li key={feature} className="flex items-center gap-3 text-sm text-muted">
-                    <span className={`h-1.5 w-1.5 rounded-full ${plan.featured ? "bg-ember" : "bg-electric"}`} />
-                    {feature}
-                  </li>
-                ))}
-              </ul>
-            </div>
-            {plan.featured && (
-              <div className="absolute -top-3 right-6 rounded-full bg-gradient-to-r from-ember to-ember-deep px-3 py-1 font-mono text-xs font-bold text-[#0b0704]">
-                Popular
-              </div>
-            )}
-          </motion.div>
-        ))}
+        <motion.div
+          initial={{ opacity: 0, x: -30 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.7, ease: "easeOut" }}
+          whileHover={{ y: -6 }}
+          className="hud-frame group relative flex flex-col justify-between rounded-xl border border-white/10 bg-surface p-7 transform-style-3d lg:order-1"
+        >
+          <div className="hud-c2" />
+          <div>
+            <h3 className="font-display text-sm font-bold uppercase tracking-[0.06em] text-muted">{sidePlans[0].title}</h3>
+            <p className="mt-4 flex items-baseline gap-2">
+              <span className="tabular font-mono text-3xl font-bold text-ink">{sidePlans[0].price}</span>
+              <span className="font-mono text-xs text-muted-2">{sidePlans[0].unit}</span>
+            </p>
+            <p className="mt-3 text-sm leading-relaxed text-muted">{sidePlans[0].description}</p>
+            <ul className="mt-6 space-y-2.5">
+              {sidePlans[0].features.map((feature) => (
+                <li key={feature} className="flex items-center gap-3 text-sm text-muted">
+                  <span className="h-1.5 w-1.5 rounded-full bg-electric" />
+                  {feature}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 40, rotateX: 8 }}
+          whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.8, delay: 0.1, ease: "easeOut" }}
+          whileHover={{ y: -14, z: 30, scale: 1.02 }}
+          className="hud-frame group relative flex flex-col justify-between rounded-2xl border border-ember/40 bg-surface-2 p-9 shadow-[0_30px_60px_-25px_rgba(255,90,31,0.35)] transform-style-3d lg:order-2 lg:-my-6 lg:scale-[1.04]"
+        >
+          <div className="hud-c2" />
+          <div className="absolute -top-3 right-8 rounded-full bg-gradient-to-r from-ember to-ember-deep px-3 py-1 font-mono text-xs font-bold text-[#0b0704]">
+            Most Booked
+          </div>
+          <div>
+            <h3 className="font-display text-base font-bold uppercase tracking-[0.06em] text-ink">{featured.title}</h3>
+            <p className="mt-5 flex items-baseline gap-2">
+              <span className="tabular font-mono text-5xl font-bold text-ink">{featured.price}</span>
+              <span className="font-mono text-sm text-muted-2">{featured.unit}</span>
+            </p>
+            <p className="mt-4 text-sm leading-relaxed text-muted">{featured.description}</p>
+            <ul className="mt-8 space-y-3">
+              {featured.features.map((feature) => (
+                <li key={feature} className="flex items-center gap-3 text-sm text-ink">
+                  <span className="h-1.5 w-1.5 rounded-full bg-ember" />
+                  {feature}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, x: 30 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.7, delay: 0.15, ease: "easeOut" }}
+          whileHover={{ y: -6 }}
+          className="hud-frame electric group relative flex flex-col justify-between rounded-xl border border-white/10 bg-surface p-7 transform-style-3d lg:order-3"
+        >
+          <div className="hud-c2" />
+          <div>
+            <h3 className="font-display text-sm font-bold uppercase tracking-[0.06em] text-muted">{sidePlans[1].title}</h3>
+            <p className="mt-4 flex items-baseline gap-2">
+              <span className="tabular font-mono text-3xl font-bold text-ink">{sidePlans[1].price}</span>
+              <span className="font-mono text-xs text-muted-2">{sidePlans[1].unit}</span>
+            </p>
+            <p className="mt-3 text-sm leading-relaxed text-muted">{sidePlans[1].description}</p>
+            <ul className="mt-6 space-y-2.5">
+              {sidePlans[1].features.map((feature) => (
+                <li key={feature} className="flex items-center gap-3 text-sm text-muted">
+                  <span className="h-1.5 w-1.5 rounded-full bg-electric" />
+                  {feature}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </motion.div>
       </motion.div>
     </section>
   );
