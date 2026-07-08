@@ -24,16 +24,20 @@ export default function KGGHero() {
     return () => observer.disconnect();
   }, []);
 
-  // We track the scroll over 300vh. The video will scrub as we scroll through it.
+  // We track the scroll over 170vh (down from 300vh) so the video finishes
+  // scrubbing without leaving a long stretch of dead scroll after the
+  // content has faded and before the next section arrives.
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end end"],
   });
 
-  // Fade out hero content as we scroll down to reveal just the video
-  const opacity = useTransform(scrollYProgress, [0, 0.3], [1, 0]);
-  const y = useTransform(scrollYProgress, [0, 0.3], ["0%", "30%"]);
-  const scale = useTransform(scrollYProgress, [0, 0.3], [1, 0.95]);
+  // Fade out hero content as we scroll down to reveal just the video.
+  // Content stays visible through more of the scroll range (60%) so the
+  // tail of the scrub doesn't feel like empty dead scrolling.
+  const opacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
+  const y = useTransform(scrollYProgress, [0, 0.6], ["0%", "20%"]);
+  const scale = useTransform(scrollYProgress, [0, 0.6], [1, 0.97]);
 
   useEffect(() => {
     if (videoRef.current) {
@@ -58,7 +62,7 @@ export default function KGGHero() {
   });
 
   return (
-    <section ref={containerRef} id="home" className="relative h-[300vh] w-full bg-base">
+    <section ref={containerRef} id="home" className="relative h-[170vh] w-full bg-base">
       {/* Sticky Background Video Layer */}
       <div className="sticky top-0 h-screen w-full overflow-hidden">
         <video
