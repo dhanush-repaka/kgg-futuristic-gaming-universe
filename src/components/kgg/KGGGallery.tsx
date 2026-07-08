@@ -5,12 +5,12 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 
 const items = [
-  { zone: "Console Arena", note: "wide shot, rig row lit warm", accent: "ember", span: "lg:col-span-4 lg:row-span-2" },
-  { zone: "VR Battle Pod", note: "player mid-session, cool rim light", accent: "electric", span: "lg:col-span-2" },
-  { zone: "Squad Lounge", note: "group candid, ember glow", accent: "ember", span: "lg:col-span-2" },
-  { zone: "Board Game Deck", note: "overhead, tabletop detail", accent: "ember", span: "lg:col-span-3" },
-  { zone: "Streaming Corner", note: "rig + ring light detail", accent: "electric", span: "lg:col-span-3" },
-  { zone: "Tournament Stage", note: "crowd POV, dramatic low angle", accent: "electric", span: "lg:col-span-6" },
+  { zone: "Console Arena", note: "wide shot, rig row lit warm", span: "lg:col-span-4 lg:row-span-2" },
+  { zone: "VR Battle Pod", note: "player mid-session, soft rim light", span: "lg:col-span-2" },
+  { zone: "Squad Lounge", note: "group candid, warm light", span: "lg:col-span-2" },
+  { zone: "Board Game Deck", note: "overhead, tabletop detail", span: "lg:col-span-3" },
+  { zone: "Streaming Corner", note: "rig + ring light detail", span: "lg:col-span-3" },
+  { zone: "Tournament Stage", note: "crowd POV, dramatic low angle", span: "lg:col-span-6" },
 ] as const;
 
 export default function KGGGallery() {
@@ -20,26 +20,26 @@ export default function KGGGallery() {
     offset: ["start end", "end start"],
   });
 
-  const rotateX = useTransform(scrollYProgress, [0, 1], [-15, 15]);
+  const rotateX = useTransform(scrollYProgress, [0, 1], [-6, 6]);
 
   return (
     <section ref={containerRef} id="gallery" className="py-24 perspective-1000">
       <div className="mx-auto w-full max-w-7xl px-5 md:px-8">
         <Reveal>
-          <span className="font-mono text-xs font-medium uppercase tracking-[0.16em] text-ember-soft">
+          <span className="font-mono text-xs font-medium uppercase tracking-[0.14em] text-ember-deep">
             The Venue Frame
           </span>
-          <h2 className="mt-4 font-display text-4xl font-extrabold tracking-tight text-ink md:text-5xl">
+          <h2 className="mt-4 font-display text-4xl font-semibold tracking-tight text-ink md:text-5xl">
             Our Spaces.
           </h2>
           <p className="mt-4 max-w-2xl text-lg text-muted">
-            Every frame here is a placeholder for real KGG photography &mdash; shot on-site and graded to this palette, not stock imagery.
+            Every frame here is a placeholder for real KGG photography &mdash; shot on-site with soft natural light, not stock imagery.
           </p>
         </Reveal>
 
         {/* Bento layout: Console Arena leads as a large tile, Tournament
-            Stage closes as a full-width cinematic banner -- varying tile
-            sizes instead of a flat symmetric grid. */}
+            Stage closes as a full-width banner -- varying tile sizes
+            instead of a flat symmetric grid. */}
         <motion.div
           style={{ rotateX }}
           className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-6 lg:grid-flow-dense lg:auto-rows-[minmax(160px,auto)] transform-style-3d"
@@ -47,27 +47,21 @@ export default function KGGGallery() {
           {items.map((item, idx) => (
             <motion.div
               key={item.zone}
-              initial={{ opacity: 0, z: -50 }}
-              whileInView={{ opacity: 1, z: 0 }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.8, delay: idx * 0.1, ease: "easeOut" }}
-              whileHover={{ scale: 1.03, z: 50 }}
-              className={`hud-frame ${item.accent === "electric" ? "electric" : ""} ${item.span} group relative min-h-64 overflow-hidden rounded-xl border border-white/10 bg-gradient-to-br from-surface-2 to-base-2 p-6 transform-style-3d cursor-default flex flex-col justify-between`}
+              whileHover={{ scale: 1.015 }}
+              className={`hud-frame ${item.span} group relative min-h-64 overflow-hidden rounded-xl border border-ink/8 bg-gradient-to-br from-surface to-surface-2 p-6 transform-style-3d cursor-default flex flex-col justify-between`}
             >
               <div className="hud-c2" />
-              <div
-                className={`pointer-events-none absolute inset-0 z-0 ${
-                  item.accent === "electric"
-                    ? "bg-[radial-gradient(70%_60%_at_30%_10%,rgba(61,169,252,0.16),transparent_65%)]"
-                    : "bg-[radial-gradient(70%_60%_at_30%_10%,rgba(255,90,31,0.16),transparent_65%)]"
-                }`}
-              />
-              <span className="relative z-10 self-start rounded border border-dashed border-white/15 px-2 py-1 font-mono text-[10px] uppercase tracking-widest text-muted-2">
+              <div className="pointer-events-none absolute inset-0 z-0 bg-[radial-gradient(70%_60%_at_30%_10%,rgba(201,124,61,0.06),transparent_65%)]" />
+              <span className="relative z-10 self-start rounded border border-dashed border-ink/15 px-2 py-1 font-mono text-[10px] uppercase tracking-widest text-muted-2">
                 shoot here
               </span>
-              <div className="relative z-10 transition-transform duration-500 group-hover:-translate-y-2">
+              <div className="relative z-10">
                 <p className="font-mono text-xs text-muted-2">{item.note}</p>
-                <h3 className="mt-2 font-display text-xl font-bold text-ink">{item.zone}</h3>
+                <h3 className="mt-2 font-display text-xl font-medium text-ink">{item.zone}</h3>
               </div>
             </motion.div>
           ))}

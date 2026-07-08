@@ -1,19 +1,20 @@
 import type { Metadata } from "next";
-import { Unbounded, Plus_Jakarta_Sans, JetBrains_Mono } from "next/font/google";
+import { Fraunces, Instrument_Sans, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import VisualEditsMessenger from "../visual-edits/VisualEditsMessenger";
 import ErrorReporter from "@/components/ErrorReporter";
 import FuturisticCursor from "@/components/FuturisticCursor";
 import Script from "next/script";
 
-const displayFont = Unbounded({
+const displayFont = Fraunces({
   subsets: ["latin"],
-  weight: ["500", "700", "900"],
+  weight: ["500", "600", "900"],
+  style: ["normal", "italic"],
   variable: "--font-display",
   display: "swap",
 });
 
-const bodyFont = Plus_Jakarta_Sans({
+const bodyFont = Instrument_Sans({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
   style: ["normal", "italic"],

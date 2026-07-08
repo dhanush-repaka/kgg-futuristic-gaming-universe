@@ -13,7 +13,7 @@ import Minimalist3DCanvas from "./Minimalist3DCanvas";
 
 export default function KGGLandingPage() {
   return (
-    <div className="relative min-h-screen overflow-x-clip bg-black text-white selection:bg-white/30">
+    <div className="relative min-h-screen overflow-x-clip bg-base text-ink selection:bg-ember/20">
       <Minimalist3DCanvas />
       <KGGNavbar />
       <main>

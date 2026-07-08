@@ -2,25 +2,18 @@
 
 import { useEffect, useRef, useState } from "react";
 
-interface Particle {
-  x: number;
-  y: number;
-  life: number;
-  id: number;
-}
-
+/**
+ * Minimal cursor ring — v1 had a glowing mix-blend-difference cursor with a
+ * 20-particle trail, which read as a "gamer HUD" gimmick. Simplified to a
+ * single soft ring with gentle lag, fitting the calm Premium Tech-Luxury
+ * direction instead.
+ */
 export default function FuturisticCursor() {
-  const cursorRef = useRef<HTMLDivElement>(null);
-  const trailRef = useRef<HTMLDivElement>(null);
-  const [particles, setParticles] = useState<Particle[]>([]);
-  const particleIdRef = useRef(0);
+  const ringRef = useRef<HTMLDivElement>(null);
   const [isDesktop, setIsDesktop] = useState(false);
 
   useEffect(() => {
-    // Only show on desktop (non-touch devices)
-    const checkDesktop = () => {
-      setIsDesktop(window.matchMedia("(pointer: fine)").matches);
-    };
+    const checkDesktop = () => setIsDesktop(window.matchMedia("(pointer: fine)").matches);
     checkDesktop();
     window.addEventListener("resize", checkDesktop);
     return () => window.removeEventListener("resize", checkDesktop);
@@ -28,72 +21,34 @@ export default function FuturisticCursor() {
 
   useEffect(() => {
     if (!isDesktop) return;
-    
-    const cursor = cursorRef.current;
-    const trail = trailRef.current;
-    
-    if (!cursor || !trail) return;
+    const ring = ringRef.current;
+    if (!ring) return;
 
     let mouseX = 0;
     let mouseY = 0;
-    let cursorX = 0;
-    let cursorY = 0;
-    let trailX = 0;
-    let trailY = 0;
+    let ringX = 0;
+    let ringY = 0;
     let animationFrameId: number;
 
-    // Smooth cursor movement
     const animate = () => {
-      cursorX += (mouseX - cursorX) * 0.1;
-      cursorY += (mouseY - cursorY) * 0.1;
-      trailX += (mouseX - trailX) * 0.15;
-      trailY += (mouseY - trailY) * 0.15;
-
-      cursor.style.left = cursorX + "px";
-      cursor.style.top = cursorY + "px";
-      trail.style.left = trailX + "px";
-      trail.style.top = trailY + "px";
-
-      // Update particles
-      setParticles((prev) => {
-        const updated = prev
-          .map((p) => ({ ...p, life: p.life - 0.02 }))
-          .filter((p) => p.life > 0);
-        return updated;
-      });
-
+      ringX += (mouseX - ringX) * 0.15;
+      ringY += (mouseY - ringY) * 0.15;
+      ring.style.left = ringX + "px";
+      ring.style.top = ringY + "px";
       animationFrameId = requestAnimationFrame(animate);
     };
 
     const handleMouseMove = (e: MouseEvent) => {
       mouseX = e.clientX;
       mouseY = e.clientY;
-
-      // Add particle
-      setParticles((prev) => {
-        if (prev.length < 20) {
-          return [
-            ...prev,
-            {
-              x: e.clientX,
-              y: e.clientY,
-              life: 1,
-              id: particleIdRef.current++,
-            },
-          ];
-        }
-        return prev;
-      });
     };
 
     const handleMouseEnter = () => {
-      if (cursor) cursor.style.opacity = "1";
-      if (trail) trail.style.opacity = "1";
+      if (ring) ring.style.opacity = "1";
     };
 
     const handleMouseLeave = () => {
-      if (cursor) cursor.style.opacity = "0";
-      if (trail) trail.style.opacity = "0";
+      if (ring) ring.style.opacity = "0";
     };
 
     window.addEventListener("mousemove", handleMouseMove);
@@ -113,50 +68,14 @@ export default function FuturisticCursor() {
   if (!isDesktop) return null;
 
   return (
-    <>
-      {/* Main Cursor */}
-      <div
-        ref={cursorRef}
-        className="fixed w-6 h-6 pointer-events-none z-[9999] mix-blend-difference"
-        style={{
-          transform: "translate(-50%, -50%)",
-          opacity: 0,
-          transition: "opacity 0.3s",
-        }}
-      >
-        <div className="w-full h-full rounded-full bg-white border-2 border-ember shadow-[0_0_20px_rgba(255,90,31,0.7)]" />
-        <div className="absolute top-1/2 left-1/2 w-2 h-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-ember" />
-      </div>
-
-      {/* Trail Cursor */}
-      <div
-        ref={trailRef}
-        className="fixed w-12 h-12 pointer-events-none z-[9998]"
-        style={{
-          transform: "translate(-50%, -50%)",
-          opacity: 0,
-          transition: "opacity 0.3s",
-        }}
-      >
-        <div className="w-full h-full rounded-full bg-gradient-to-r from-ember/30 via-ember-soft/20 to-electric/30 blur-sm border border-white/20" />
-      </div>
-
-      {/* Particles */}
-      <div className="fixed pointer-events-none z-[9997] top-0 left-0 w-full h-full">
-        {particles.map((particle) => (
-          <div
-            key={particle.id}
-            className="absolute w-1 h-1 rounded-full bg-ember"
-            style={{
-              left: `${particle.x}px`,
-              top: `${particle.y}px`,
-              opacity: particle.life,
-              transform: `scale(${particle.life})`,
-            }}
-          />
-        ))}
-      </div>
-    </>
+    <div
+      ref={ringRef}
+      className="fixed h-7 w-7 rounded-full border border-ember/50 pointer-events-none z-[9999]"
+      style={{
+        transform: "translate(-50%, -50%)",
+        opacity: 0,
+        transition: "opacity 0.3s",
+      }}
+    />
   );
 }
-

@@ -30,29 +30,32 @@
 }
 
 :root {
-  /* KGG Design System — Cinematic AAA Game World (see DESIGN.md) */
-  --kgg-base: #0a0e14;
-  --kgg-base-2: #06080d;
-  --kgg-surface: #12161f;
-  --kgg-surface-2: #191f2c;
-  --kgg-ink: #f0f3fa;
-  --kgg-muted: #8b93a7;
-  --kgg-muted-2: #5b6478;
-  --kgg-ember: #ff5a1f;
-  --kgg-ember-soft: #ffb37e;
-  --kgg-ember-deep: #c23f12;
-  --kgg-electric: #3da9fc;
-  --kgg-electric-soft: #9ed4ff;
-  --kgg-electric-deep: #1e6fb8;
-  --kgg-line: rgba(240, 243, 250, 0.09);
-  --kgg-line-strong: rgba(240, 243, 250, 0.16);
+  /* KGG Design System v2 — Premium Tech-Luxury (see DESIGN.md).
+     Single restrained copper accent — "ember" and "electric" token names
+     are kept from v1 so component classNames didn't need renaming, but
+     both now resolve to the same copper family (no more dual neon accent). */
+  --kgg-base: #f7f5f2;
+  --kgg-base-2: #efebe5;
+  --kgg-surface: #ffffff;
+  --kgg-surface-2: #efebe5;
+  --kgg-ink: #161513;
+  --kgg-muted: #6b6660;
+  --kgg-muted-2: #8f8a83;
+  --kgg-ember: #c97c3d;
+  --kgg-ember-soft: #e8b98a;
+  --kgg-ember-deep: #8f5423;
+  --kgg-electric: #c97c3d;
+  --kgg-electric-soft: #e8b98a;
+  --kgg-electric-deep: #8f5423;
+  --kgg-line: rgba(22, 21, 19, 0.08);
+  --kgg-line-strong: rgba(22, 21, 19, 0.14);
 
   --background: var(--kgg-base);
   --foreground: var(--kgg-ink);
   --border: var(--kgg-line);
   --input: var(--kgg-line);
-  --ring: var(--kgg-electric);
-  --radius: 0.625rem;
+  --ring: var(--kgg-ember);
+  --radius: 0.75rem;
 }
 
 @layer base {
@@ -88,7 +91,7 @@
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: var(--font-display), sans-serif;
+    font-family: var(--font-display), serif;
     letter-spacing: -0.01em;
   }
 
@@ -100,43 +103,22 @@
     transform-style: preserve-3d;
   }
 
-  /* HUD corner-bracket motif — expands + brightens on hover/focus */
+  /* Calm hover-lift — replaces v1's HUD corner-bracket motif. Kept the
+     class name so component markup didn't need touching; the pseudo
+     corner elements are gone, this is now just a soft elevation lift. */
   .hud-frame {
     position: relative;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
   }
-  .hud-frame::before,
-  .hud-frame::after,
-  .hud-frame .hud-c2::before,
-  .hud-frame .hud-c2::after {
-    content: "";
-    position: absolute;
-    width: 18px;
-    height: 18px;
-    border-color: var(--kgg-ember-soft);
-    opacity: 0.45;
-    pointer-events: none;
-    transition: width 0.25s ease, height 0.25s ease, opacity 0.25s ease;
+  .hud-frame:hover, .hud-frame:focus-within {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 24px -12px rgba(22, 21, 19, 0.18);
   }
-  .hud-frame::before { top: 0; left: 0; border-top: 2px solid; border-left: 2px solid; }
-  .hud-frame::after { top: 0; right: 0; border-top: 2px solid; border-right: 2px solid; }
-  .hud-frame .hud-c2::before { bottom: 0; left: 0; border-bottom: 2px solid; border-left: 2px solid; }
-  .hud-frame .hud-c2::after { bottom: 0; right: 0; border-bottom: 2px solid; border-right: 2px solid; }
-  .hud-frame:hover::before, .hud-frame:hover::after,
-  .hud-frame:hover .hud-c2::before, .hud-frame:hover .hud-c2::after,
-  .hud-frame:focus-within::before, .hud-frame:focus-within::after,
-  .hud-frame:focus-within .hud-c2::before, .hud-frame:focus-within .hud-c2::after {
-    width: 26px;
-    height: 26px;
-    opacity: 0.9;
-  }
-  .hud-frame.electric::before,
-  .hud-frame.electric::after,
-  .hud-frame.electric .hud-c2::before,
-  .hud-frame.electric .hud-c2::after {
-    border-color: var(--kgg-electric-soft);
+  .hud-frame .hud-c2 {
+    display: none;
   }
 
-  /* Scanline divider between major sections */
+  /* Hairline divider between major sections (kept subtle, no animated sheen) */
   .scanline {
     height: 1px;
     background: linear-gradient(

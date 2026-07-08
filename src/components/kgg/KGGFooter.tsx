@@ -12,14 +12,14 @@ const links = [
 
 export default function KGGFooter() {
   return (
-    <footer id="contact" className="border-t border-white/10 bg-base">
+    <footer id="contact" className="border-t border-ink/8 bg-base">
       <Reveal className="mx-auto grid w-full max-w-7xl gap-12 px-5 py-20 md:grid-cols-3 md:px-8">
         <div>
           <div className="flex items-center gap-3">
-            <span className="relative inline-flex h-9 w-9 overflow-hidden rounded-md ring-1 ring-white/10">
+            <span className="relative inline-flex h-9 w-9 overflow-hidden rounded-md ring-1 ring-ink/10">
               <Image src="/kgg-logo.jpeg" alt="" fill sizes="36px" className="object-cover" />
             </span>
-            <h3 className="font-display text-lg font-bold tracking-tight text-ink">Karthikeya&apos;s Games Galaxy</h3>
+            <h3 className="font-display text-lg font-medium tracking-tight text-ink">Karthikeya&apos;s Games Galaxy</h3>
           </div>
           <p className="mt-4 text-sm leading-relaxed text-muted">
             A premium gaming lounge built for next-gen console gaming, immersive VR, and meaningful connections.

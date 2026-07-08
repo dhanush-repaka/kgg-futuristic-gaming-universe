@@ -36,16 +36,16 @@ export default function KGGPricing() {
     offset: ["start end", "end start"],
   });
 
-  const scale = useTransform(scrollYProgress, [0, 0.5, 1], [0.95, 1, 0.95]);
+  const scale = useTransform(scrollYProgress, [0, 0.5, 1], [0.97, 1, 0.97]);
 
   return (
     <section ref={containerRef} id="pricing" className="mx-auto w-full max-w-7xl px-5 py-24 md:px-8 perspective-1000">
       <Reveal>
-        <span className="font-mono text-xs font-medium uppercase tracking-[0.16em] text-electric-soft">
+        <span className="font-mono text-xs font-medium uppercase tracking-[0.14em] text-ember-deep">
           Session Passes
         </span>
-        <h2 className="mt-4 font-display text-4xl font-extrabold tracking-tight text-ink md:text-5xl">
-          Pricing as a HUD stat block.
+        <h2 className="mt-4 font-display text-4xl font-semibold tracking-tight text-ink md:text-5xl">
+          Plainly priced, worth it.
         </h2>
         <p className="mt-4 max-w-2xl text-lg text-muted">Flexible plans for solo players, squad battles, and unforgettable VR adventures.</p>
       </Reveal>
@@ -63,12 +63,12 @@ export default function KGGPricing() {
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.7, ease: "easeOut" }}
-          whileHover={{ y: -6 }}
-          className="hud-frame group relative flex flex-col justify-between rounded-xl border border-white/10 bg-surface p-7 transform-style-3d lg:order-1"
+          whileHover={{ y: -4 }}
+          className="hud-frame group relative flex flex-col justify-between rounded-xl border border-ink/8 bg-surface p-7 transform-style-3d lg:order-1"
         >
           <div className="hud-c2" />
           <div>
-            <h3 className="font-display text-sm font-bold uppercase tracking-[0.06em] text-muted">{sidePlans[0].title}</h3>
+            <h3 className="font-display text-sm font-medium uppercase tracking-[0.06em] text-muted">{sidePlans[0].title}</h3>
             <p className="mt-4 flex items-baseline gap-2">
               <span className="tabular font-mono text-3xl font-bold text-ink">{sidePlans[0].price}</span>
               <span className="font-mono text-xs text-muted-2">{sidePlans[0].unit}</span>
@@ -77,7 +77,7 @@ export default function KGGPricing() {
             <ul className="mt-6 space-y-2.5">
               {sidePlans[0].features.map((feature) => (
                 <li key={feature} className="flex items-center gap-3 text-sm text-muted">
-                  <span className="h-1.5 w-1.5 rounded-full bg-electric" />
+                  <span className="h-1.5 w-1.5 rounded-full bg-ember-deep" />
                   {feature}
                 </li>
               ))}
@@ -86,19 +86,19 @@ export default function KGGPricing() {
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0, y: 40, rotateX: 8 }}
-          whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.8, delay: 0.1, ease: "easeOut" }}
-          whileHover={{ y: -14, z: 30, scale: 1.02 }}
-          className="hud-frame group relative flex flex-col justify-between rounded-2xl border border-ember/40 bg-surface-2 p-9 shadow-[0_30px_60px_-25px_rgba(255,90,31,0.35)] transform-style-3d lg:order-2 lg:-my-6 lg:scale-[1.04]"
+          whileHover={{ y: -8 }}
+          className="hud-frame group relative flex flex-col justify-between rounded-2xl border border-ember/30 bg-surface-2 p-9 shadow-[0_24px_48px_-24px_rgba(143,84,35,0.25)] transform-style-3d lg:order-2 lg:-my-6 lg:scale-[1.04]"
         >
           <div className="hud-c2" />
-          <div className="absolute -top-3 right-8 rounded-full bg-gradient-to-r from-ember to-ember-deep px-3 py-1 font-mono text-xs font-bold text-[#0b0704]">
+          <div className="absolute -top-3 right-8 rounded-full bg-ember px-3 py-1 font-mono text-xs font-semibold text-white">
             Most Booked
           </div>
           <div>
-            <h3 className="font-display text-base font-bold uppercase tracking-[0.06em] text-ink">{featured.title}</h3>
+            <h3 className="font-display text-base font-medium uppercase tracking-[0.06em] text-ink">{featured.title}</h3>
             <p className="mt-5 flex items-baseline gap-2">
               <span className="tabular font-mono text-5xl font-bold text-ink">{featured.price}</span>
               <span className="font-mono text-sm text-muted-2">{featured.unit}</span>
@@ -120,12 +120,12 @@ export default function KGGPricing() {
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.7, delay: 0.15, ease: "easeOut" }}
-          whileHover={{ y: -6 }}
-          className="hud-frame electric group relative flex flex-col justify-between rounded-xl border border-white/10 bg-surface p-7 transform-style-3d lg:order-3"
+          whileHover={{ y: -4 }}
+          className="hud-frame group relative flex flex-col justify-between rounded-xl border border-ink/8 bg-surface p-7 transform-style-3d lg:order-3"
         >
           <div className="hud-c2" />
           <div>
-            <h3 className="font-display text-sm font-bold uppercase tracking-[0.06em] text-muted">{sidePlans[1].title}</h3>
+            <h3 className="font-display text-sm font-medium uppercase tracking-[0.06em] text-muted">{sidePlans[1].title}</h3>
             <p className="mt-4 flex items-baseline gap-2">
               <span className="tabular font-mono text-3xl font-bold text-ink">{sidePlans[1].price}</span>
               <span className="font-mono text-xs text-muted-2">{sidePlans[1].unit}</span>
@@ -134,7 +134,7 @@ export default function KGGPricing() {
             <ul className="mt-6 space-y-2.5">
               {sidePlans[1].features.map((feature) => (
                 <li key={feature} className="flex items-center gap-3 text-sm text-muted">
-                  <span className="h-1.5 w-1.5 rounded-full bg-electric" />
+                  <span className="h-1.5 w-1.5 rounded-full bg-ember-deep" />
                   {feature}
                 </li>
               ))}
