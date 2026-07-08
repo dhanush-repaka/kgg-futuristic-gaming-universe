@@ -2,24 +2,31 @@
 
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import Reveal from "./Reveal";
 
 const games = [
   { platform: "PS5", title: "Grand Theft Auto V", genre: "Action-Adventure", accent: "ember" },
   { platform: "PS5", title: "WWE 2K25", genre: "Sports / Fighting", accent: "ember" },
   { platform: "Xbox", title: "Forza Horizon 5", genre: "Racing", accent: "electric" },
+  { platform: "Switch", title: "Mario Kart 8 Deluxe", genre: "Party / Racing", accent: "ember" },
   { platform: "Meta Quest", title: "Beat Saber", genre: "Rhythm / VR", accent: "electric" },
+  { platform: "Board Game", title: "Catan & Chess Night", genre: "Strategy / Tabletop", accent: "electric" },
 ] as const;
 
 export default function KGGGamesShowcase() {
   const containerRef = useRef<HTMLElement>(null);
+  const railRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start end", "end start"],
   });
 
-  const rotateX = useTransform(scrollYProgress, [0, 1], [15, -15]);
   const yOffset = useTransform(scrollYProgress, [0, 1], [100, -100]);
+
+  const scrollRail = (dir: 1 | -1) => {
+    railRef.current?.scrollBy({ left: dir * 340, behavior: "smooth" });
+  };
 
   return (
     <section ref={containerRef} id="games-showcase" className="py-32 perspective-1000 overflow-hidden border-t border-white/5">
@@ -67,20 +74,44 @@ export default function KGGGamesShowcase() {
           </div>
         </motion.div>
 
-        {/* Regular Games Grid */}
-        <motion.div
-          style={{ rotateX }}
-          className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4 transform-style-3d"
+        {/* Game select rail — horizontal scroll-snap, like a console dashboard row, not a static grid */}
+        <div className="mt-14 flex items-center justify-between">
+          <p className="font-mono text-xs uppercase tracking-[0.14em] text-muted-2">Scroll to browse &middot; {games.length} titles</p>
+          <div className="hidden gap-2 sm:flex">
+            <button
+              type="button"
+              onClick={() => scrollRail(-1)}
+              aria-label="Scroll left"
+              className="hud-frame flex h-10 w-10 items-center justify-center rounded-md border border-white/10 bg-surface text-muted transition hover:text-ink"
+            >
+              <div className="hud-c2" />
+              <ChevronLeft className="h-4 w-4" />
+            </button>
+            <button
+              type="button"
+              onClick={() => scrollRail(1)}
+              aria-label="Scroll right"
+              className="hud-frame flex h-10 w-10 items-center justify-center rounded-md border border-white/10 bg-surface text-muted transition hover:text-ink"
+            >
+              <div className="hud-c2" />
+              <ChevronRight className="h-4 w-4" />
+            </button>
+          </div>
+        </div>
+
+        <div
+          ref={railRef}
+          className="mt-6 flex snap-x snap-mandatory gap-6 overflow-x-auto pb-4 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
         >
           {games.map((game, idx) => (
             <motion.div
               key={game.title}
-              initial={{ opacity: 0, y: 50 }}
+              initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.6, delay: idx * 0.1 }}
-              whileHover={{ scale: 1.05, y: -10 }}
-              className={`hud-frame ${game.accent === "electric" ? "electric" : ""} group relative aspect-[3/4] overflow-hidden rounded-2xl border border-white/5 bg-surface transform-style-3d cursor-default`}
+              transition={{ duration: 0.6, delay: idx * 0.06 }}
+              whileHover={{ y: -8 }}
+              className={`hud-frame ${game.accent === "electric" ? "electric" : ""} group relative aspect-[3/4] w-[260px] shrink-0 snap-start overflow-hidden rounded-2xl border border-white/5 bg-surface cursor-default sm:w-[280px]`}
             >
               <div className="hud-c2" />
               <div
@@ -102,7 +133,7 @@ export default function KGGGamesShowcase() {
               </div>
             </motion.div>
           ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   );
