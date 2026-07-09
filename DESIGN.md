@@ -42,9 +42,16 @@ v1 ("Cinematic AAA Game World" — dark charcoal, ember/electric neon, HUD brack
 - **Scale:** 2xs(4) xs(8) sm(12) md(16) lg(24) xl(32) 2xl(48) 3xl(64) 4xl(96).
 
 ## Layout
-- **Approach:** Editorial, airy — keep the structural work from the v1 design-review pass (it solved a real compositional problem): the console/VR two-panel split, the horizontal game-select carousel, the asymmetric featured-dominant pricing layout, the bento-grid highlights and gallery, the full-bleed asymmetric CTA. Re-skin all of it in this system rather than redesign the layouts from scratch.
-- **Grid:** 12-col at desktop, single column below 860px. Max content width 1180px.
-- **Border radius:** sm 8px (buttons), md 12px (cards), lg 20px (feature panels), full 9999px (pills/badges/nav CTA) — slightly softer than v1's sharper HUD-inspired radii.
+- **Approach (v3):** Chapter-based staggered narrative — superseded the v1/v2 card-grid/bento/carousel pattern entirely (see Decisions Log). Each section is a distinct full-bleed "chapter" with its own eyebrow label and alternating background band (base / surface-2 / white), composed as an asymmetric staggered zig-zag (offset image/text blocks, uneven margins, alternating left/right) rather than a symmetric grid. No two chapters share the same visual template:
+  - **Arrive** (Offerings): two staggered image+text blocks, offset horizontally, image side flips between blocks.
+  - **On the Deck** (Games): full-bleed edge-to-edge featured image (no card border) + horizontal scroll-snap rail.
+  - **Why It Works** (Highlights): numbered editorial list (01–05) with hairline dividers, alternating column offsets — not an icon grid.
+  - **Session Passes** (Pricing): a single ledger with three rows (title/description, features, price) instead of three separate cards; featured plan gets a tinted row, not a floating elevated card.
+  - **The Venue Frame** (Gallery): alternating zig-zag strip of image/text blocks, closing on a full-bleed banner.
+  - **Signature** (VR): asymmetric two-column split with an intentional empty gutter column, no card border.
+  - Closes on an oversized wordmark moment ("Let's play.") before the footer.
+- **Grid:** 12-col at desktop, single column below 768px (component breakpoint; note DESIGN.md v2 said 860px — the actual Tailwind `md:` breakpoint used across components is 768px, keep this consistent going forward). Max content width 1180px.
+- **Border radius:** sm 8px (buttons), md 12px (cards), lg 20px (feature panels), full 9999px (pills/badges/nav CTA).
 
 ## Motion
 - **Approach:** Minimal-functional to intentional — calm, not cinematic-expressive.
@@ -64,6 +71,7 @@ v1 ("Cinematic AAA Game World" — dark charcoal, ember/electric neon, HUD brack
 ## Decisions Log
 | Date | Decision | Rationale |
 |------|----------|-----------|
+| 2026-07-09 | **v3 layout pass — chapter-based staggered narrative replaces card-grid/bento/carousel pattern.** Color and typography unchanged. Every section rebuilt as a distinct full-bleed "chapter" (Arrive, On the Deck, Why It Works, Session Passes, The Venue Frame, Signature) with alternating background bands (base/surface-2/white), asymmetric staggered zig-zag composition (offset image/text blocks, uneven margins) instead of symmetric grids, a numbered editorial list replacing the icon-grid highlights, a ledger/menu-row replacing the 3-card pricing grid, and an oversized closing wordmark ("Let's play.") as the site's signature closing beat. | User feedback on v2: "the colours looks good, but im expecting some different site pattern, at present i feel like the same old site with different colours." Confirmed every v2 section reused the identical `hud-frame` bordered-card pattern (just varying bento spans) inherited unchanged from v1 — so v2 only re-skinned colors/type, not structure. Research (The Ned London, Puttshack) showed premium hospitality/social-gaming venues differentiate via chapter-based editorial narratives, not component grids. |
 | 2026-07-08 | Cinematic AAA Game World direction, dual ember/electric accent, single dark theme | User-selected "memorable thing" = cinematic AAA menu feel; research on PlayStation/Razer/God of War sites; dual accent maps to the two real verticals (console vs VR) |
 | 2026-07-08 | Added WebGL 3D layer + refined video-scrub hero + ambient particles to motion spec | User requested more video/3D/animation on top of the base system |
 | 2026-07-08 | Design-review pass: shortened hero scroll, broke uniform card grids into carousel/bento/asymmetric layouts | User felt v1 was "the same as old, just colors/text changed" — fixed structural sameness while keeping the dark aesthetic |

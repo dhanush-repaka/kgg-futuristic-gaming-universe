@@ -50,6 +50,22 @@ export default function KGGCTA() {
           </div>
         </motion.div>
       </div>
+
+      {/* Oversized closing wordmark — the site's signature closing beat, unveiled with a clip-path wipe */}
+      <motion.div
+        initial={{ clipPath: "inset(0 100% 0 0)" }}
+        whileInView={{ clipPath: "inset(0 0% 0 0)" }}
+        viewport={{ once: true, margin: "-80px" }}
+        transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
+        className="relative mt-24 w-full overflow-hidden px-5 md:mt-32 md:px-8"
+      >
+        <p
+          className="select-none whitespace-nowrap font-display font-semibold leading-none tracking-tight text-ink"
+          style={{ fontSize: "clamp(3.25rem, 13vw, 10.5rem)" }}
+        >
+          Let&apos;s <em className="font-normal italic text-ember-deep">play.</em>
+        </p>
+      </motion.div>
     </section>
   );
 }

@@ -1,29 +1,18 @@
 "use client";
 
 import Reveal from "./Reveal";
-import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { motion } from "framer-motion";
 
-const items = [
-  { zone: "Console Arena", note: "wide shot, rig row lit warm", span: "lg:col-span-4 lg:row-span-2" },
-  { zone: "VR Battle Pod", note: "player mid-session, soft rim light", span: "lg:col-span-2" },
-  { zone: "Squad Lounge", note: "group candid, warm light", span: "lg:col-span-2" },
-  { zone: "Board Game Deck", note: "overhead, tabletop detail", span: "lg:col-span-3" },
-  { zone: "Streaming Corner", note: "rig + ring light detail", span: "lg:col-span-3" },
-  { zone: "Tournament Stage", note: "crowd POV, dramatic low angle", span: "lg:col-span-6" },
+const zones = [
+  { zone: "Console Arena", note: "wide shot, rig row lit warm" },
+  { zone: "VR Battle Pod", note: "player mid-session, soft rim light" },
+  { zone: "Squad Lounge", note: "group candid, warm light" },
+  { zone: "Board Game Deck", note: "overhead, tabletop detail" },
 ] as const;
 
 export default function KGGGallery() {
-  const containerRef = useRef<HTMLElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start end", "end start"],
-  });
-
-  const rotateX = useTransform(scrollYProgress, [0, 1], [-6, 6]);
-
   return (
-    <section ref={containerRef} id="gallery" className="py-24 perspective-1000">
+    <section id="gallery" className="w-full bg-surface-2/60 py-28 md:py-36">
       <div className="mx-auto w-full max-w-7xl px-5 md:px-8">
         <Reveal>
           <span className="font-mono text-xs font-medium uppercase tracking-[0.14em] text-ember-deep">
@@ -33,38 +22,60 @@ export default function KGGGallery() {
             Our Spaces.
           </h2>
           <p className="mt-4 max-w-2xl text-lg text-muted">
-            Every frame here is a placeholder for real KGG photography &mdash; shot on-site with soft natural light, not stock imagery.
+            Every frame here is a placeholder for real KGG photography &mdash; shot on-site
+            with soft natural light, not stock imagery.
           </p>
         </Reveal>
 
-        {/* Bento layout: Console Arena leads as a large tile, Tournament
-            Stage closes as a full-width banner -- varying tile sizes
-            instead of a flat symmetric grid. */}
-        <motion.div
-          style={{ rotateX }}
-          className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-6 lg:grid-flow-dense lg:auto-rows-[minmax(160px,auto)] transform-style-3d"
-        >
-          {items.map((item, idx) => (
+        <div className="mt-16 space-y-16 md:space-y-24">
+          {zones.map((item, idx) => (
             <motion.div
               key={item.zone}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial="hidden"
+              whileInView="show"
               viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.8, delay: idx * 0.1, ease: "easeOut" }}
-              whileHover={{ scale: 1.015 }}
-              className={`hud-frame ${item.span} group relative min-h-64 overflow-hidden rounded-xl border border-ink/8 bg-gradient-to-br from-surface to-surface-2 p-6 transform-style-3d cursor-default flex flex-col justify-between`}
+              className="grid items-center gap-8 md:grid-cols-12"
             >
-              <div className="hud-c2" />
-              <div className="pointer-events-none absolute inset-0 z-0 bg-[radial-gradient(70%_60%_at_30%_10%,rgba(201,124,61,0.06),transparent_65%)]" />
-              <span className="relative z-10 self-start rounded border border-dashed border-ink/15 px-2 py-1 font-mono text-[10px] uppercase tracking-widest text-muted-2">
-                shoot here
-              </span>
-              <div className="relative z-10">
+              <motion.div
+                variants={{ hidden: { opacity: 0, scale: 1.08 }, show: { opacity: 1, scale: 1, transition: { duration: 0.9, ease: [0.16, 1, 0.3, 1] } } }}
+                className={`relative aspect-[4/3] overflow-hidden rounded-2xl border border-ink/8 bg-gradient-to-br from-surface to-base-2 md:col-span-7 ${
+                  idx % 2 === 1 ? "md:order-2" : "md:order-1"
+                }`}
+              >
+                <span className="absolute left-5 top-5 rounded border border-dashed border-ink/15 px-2.5 py-1 font-mono text-[10px] uppercase tracking-widest text-muted-2">
+                  shoot here
+                </span>
+              </motion.div>
+              <motion.div
+                variants={{ hidden: { opacity: 0, y: 20 }, show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut", delay: 0.2 } } }}
+                className={`md:col-span-5 ${idx % 2 === 1 ? "md:order-1" : "md:order-2"}`}
+              >
                 <p className="font-mono text-xs text-muted-2">{item.note}</p>
-                <h3 className="mt-2 font-display text-xl font-medium text-ink">{item.zone}</h3>
-              </div>
+                <h3 className="mt-2 font-display text-3xl font-medium text-ink">{item.zone}</h3>
+              </motion.div>
             </motion.div>
           ))}
+        </div>
+
+        {/* Closing full-bleed banner */}
+        <motion.div
+          initial={{ opacity: 0, scale: 1.06 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+          className="relative mt-16 aspect-[21/9] overflow-hidden rounded-2xl border border-ink/8 bg-gradient-to-br from-surface to-base-2 md:mt-24"
+        >
+          <span className="absolute left-6 top-6 rounded border border-dashed border-ink/15 px-2.5 py-1 font-mono text-[10px] uppercase tracking-widest text-muted-2">
+            shoot here
+          </span>
+          <div className="absolute inset-x-0 bottom-0 p-8 md:p-12">
+            <p className="font-mono text-xs uppercase tracking-widest text-muted-2">
+              crowd POV, dramatic low angle
+            </p>
+            <h3 className="mt-2 font-display text-3xl font-medium text-ink md:text-4xl">
+              Tournament Stage.
+            </h3>
+          </div>
         </motion.div>
       </div>
     </section>
