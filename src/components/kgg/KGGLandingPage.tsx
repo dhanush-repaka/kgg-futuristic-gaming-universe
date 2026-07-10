@@ -1,6 +1,7 @@
 import KGGNavbar from "./KGGNavbar";
 import KGGHero from "./KGGHero";
 import KGGGamesShowcase from "./KGGGamesShowcase";
+import KGGUpdates from "./KGGUpdates";
 import KGGOfferings from "./KGGOfferings";
 import KGGHighlights from "./KGGHighlights";
 import KGGPricing from "./KGGPricing";
@@ -19,6 +20,7 @@ export default function KGGLandingPage() {
       <main>
         <KGGHero />
         <KGGGamesShowcase />
+        <KGGUpdates />
         <KGGOfferings />
         <KGGHighlights />
         <KGGPricing />
