@@ -3,6 +3,7 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import Image from "next/image";
 import Reveal from "./Reveal";
 
 const games = [
@@ -55,23 +56,21 @@ export default function KGGGamesShowcase() {
         whileInView={{ opacity: 1, scale: 1 }}
         viewport={{ once: true, margin: "-100px" }}
         transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
-        className="relative mt-12 aspect-[16/9] w-full overflow-hidden bg-gradient-to-br from-surface to-surface-2 md:aspect-[21/9]"
+        className="relative mt-12 aspect-[16/9] w-full overflow-hidden md:aspect-[21/9]"
       >
-        <div className="absolute inset-0 bg-[radial-gradient(60%_60%_at_20%_20%,rgba(201,124,61,0.06),transparent_65%)]" />
-        <span className="absolute right-6 top-6 rounded border border-dashed border-ink/15 px-2.5 py-1 font-mono text-[10px] uppercase tracking-widest text-muted-2">
-          real footage goes here
-        </span>
+        <Image src="/mood/featured-setup.png" alt="" fill sizes="100vw" className="object-cover" />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink/85 via-ink/25 to-transparent" />
 
         <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-16">
           <Reveal delay={0.2}>
-            <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-ink/10 bg-base px-3 py-1 font-mono text-xs font-semibold uppercase tracking-widest text-ink">
+            <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 py-1 font-mono text-xs font-semibold uppercase tracking-widest text-white backdrop-blur-sm">
               <span className="h-2 w-2 rounded-full bg-ember" />
               Featured Setup
             </div>
-            <h3 className="font-display text-3xl font-semibold tracking-tight text-ink sm:text-5xl lg:text-6xl">
+            <h3 className="font-display text-3xl font-semibold tracking-tight text-white sm:text-5xl lg:text-6xl">
               Pro Driving Simulator
             </h3>
-            <p className="mt-4 max-w-2xl text-base md:text-lg text-muted">
+            <p className="mt-4 max-w-2xl text-base md:text-lg text-white/75">
               Ultra-realistic force feedback, pedal tension, and panoramic views. Built for Gran Turismo 7 and F1 on PlayStation 5.
             </p>
           </Reveal>

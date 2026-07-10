@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "framer-motion";
 
 export default function KGGHero() {
@@ -83,15 +84,14 @@ export default function KGGHero() {
           initial={{ opacity: 0, x: 30 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="hud-frame relative aspect-[4/5] overflow-hidden rounded-2xl border border-ink/10 bg-gradient-to-br from-surface-2 to-base-2"
+          className="hud-frame relative aspect-[4/5] overflow-hidden rounded-2xl border border-ink/10"
         >
           <div className="hud-c2" />
-          <span className="absolute right-5 top-5 rounded border border-dashed border-ink/15 px-2.5 py-1 font-mono text-[10px] uppercase tracking-widest text-muted-2">
-            real photo goes here
-          </span>
+          <Image src="/mood/hero-controller.png" alt="" fill sizes="(min-width: 1024px) 45vw, 90vw" className="object-cover" priority />
+          <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink/80 via-ink/10 to-transparent" />
           <div className="absolute inset-x-0 bottom-0 p-8">
-            <p className="font-mono text-xs uppercase tracking-widest text-muted-2">On-site right now</p>
-            <p className="mt-2 font-display text-2xl font-medium text-ink">Console Arena, live.</p>
+            <p className="font-mono text-xs uppercase tracking-widest text-white/70">The energy inside</p>
+            <p className="mt-2 font-display text-2xl font-medium text-white">Console Arena awaits.</p>
           </div>
         </motion.div>
       </div>

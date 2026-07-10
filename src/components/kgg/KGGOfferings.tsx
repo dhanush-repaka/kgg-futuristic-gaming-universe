@@ -2,6 +2,7 @@
 
 import { Gamepad2, Joystick, Sword, Radar } from "lucide-react";
 import { motion, type Variants } from "framer-motion";
+import Image from "next/image";
 import Reveal from "./Reveal";
 
 const consoleTags = [
@@ -87,11 +88,9 @@ export default function KGGOfferings() {
           </div>
           <motion.div
             variants={imageReveal}
-            className="relative aspect-[5/4] overflow-hidden rounded-2xl border border-ink/8 bg-gradient-to-br from-surface to-base-2 md:col-span-5"
+            className="relative aspect-[5/4] overflow-hidden rounded-2xl border border-ink/8 md:col-span-5"
           >
-            <span className="absolute right-5 top-5 rounded border border-dashed border-ink/15 px-2.5 py-1 font-mono text-[10px] uppercase tracking-widest text-muted-2">
-              real photo goes here
-            </span>
+            <Image src="/mood/offerings-console.png" alt="" fill sizes="(min-width: 768px) 40vw, 90vw" className="object-cover" />
           </motion.div>
         </motion.div>
 
@@ -105,11 +104,9 @@ export default function KGGOfferings() {
         >
           <motion.div
             variants={imageReveal}
-            className="relative aspect-[5/4] overflow-hidden rounded-2xl border border-ink/8 bg-gradient-to-br from-surface to-base-2 md:col-span-5"
+            className="relative aspect-[5/4] overflow-hidden rounded-2xl border border-ink/8 md:col-span-5"
           >
-            <span className="absolute right-5 top-5 rounded border border-dashed border-ink/15 px-2.5 py-1 font-mono text-[10px] uppercase tracking-widest text-muted-2">
-              real photo goes here
-            </span>
+            <Image src="/mood/offerings-vr.png" alt="" fill sizes="(min-width: 768px) 40vw, 90vw" className="object-cover" />
           </motion.div>
           <div className="md:col-span-7">
             <motion.span
