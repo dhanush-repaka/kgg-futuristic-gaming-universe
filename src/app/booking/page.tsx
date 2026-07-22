@@ -1,10 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { Phone, Mail, MapPin, Clock, ArrowLeft, Check } from "lucide-react";
 import Link from "next/link";
-import Minimalist3DCanvas from "@/components/kgg/Minimalist3DCanvas";
 
 const WHATSAPP_NUMBER = "917702528817";
 
@@ -57,13 +56,10 @@ export default function BookingPage() {
   };
 
   return (
-    <div className="relative min-h-screen overflow-x-clip bg-base text-ink selection:bg-ember/20 perspective-1000">
-      <Minimalist3DCanvas />
-
-      {/* Header */}
-      <div className="fixed top-0 left-0 right-0 z-50 border-b border-ink/8 bg-base/70 backdrop-blur-xl">
+    <div className="relative min-h-screen bg-bg text-ink">
+      <div className="fixed inset-x-0 top-0 z-50 border-b border-rule bg-bg/80 backdrop-blur-xl">
         <div className="mx-auto flex w-full max-w-7xl items-center px-5 py-4 md:px-8">
-          <Link href="/" className="group flex items-center gap-3 text-muted transition hover:text-ink">
+          <Link href="/" className="group flex items-center gap-3 text-ink-muted transition-colors hover:text-ink">
             <ArrowLeft className="h-5 w-5 transition-transform group-hover:-translate-x-1" />
             <span className="text-sm font-medium">Back to Home</span>
           </Link>
@@ -74,34 +70,31 @@ export default function BookingPage() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 0.6 }}
         >
-          <span className="font-mono text-xs font-medium uppercase tracking-[0.14em] text-ember-deep">
+          <span className="font-mono-label text-xs font-medium uppercase tracking-[0.14em] text-accent">
             Reserve Session
           </span>
-          <h1 className="mt-4 font-display text-5xl font-semibold tracking-tight text-ink md:text-6xl">
+          <h1 className="mt-4 text-5xl font-extrabold tracking-tight text-ink md:text-6xl">
             Book your slot.
           </h1>
-          <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted">
+          <p className="mt-6 max-w-xl text-lg leading-relaxed text-ink-muted">
             Fill in your details and we&apos;ll open WhatsApp with everything pre-filled &mdash;
             send it and we&apos;ll confirm your slot directly.
           </p>
         </motion.div>
 
-        <AnimatePresence mode="wait">
-          {!sent ? (
+        {!sent ? (
             <motion.form
               key="form"
               onSubmit={handleSubmit}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.5, ease: "easeOut" }}
+              transition={{ duration: 0.5 }}
               className="mt-12 space-y-10"
             >
-              {/* Session type */}
               <div>
-                <label className="font-mono text-xs font-semibold uppercase tracking-[0.14em] text-muted-2">
+                <label className="font-mono-label text-xs font-semibold uppercase tracking-[0.14em] text-ink-muted">
                   Session Type
                 </label>
                 <div className="mt-4 grid gap-4 sm:grid-cols-3">
@@ -110,24 +103,23 @@ export default function BookingPage() {
                       type="button"
                       key={s.id}
                       onClick={() => setSessionType(s.id)}
-                      className={`rounded-xl border p-5 text-left transition ${
+                      className={`rounded-lg border p-5 text-left transition-colors ${
                         sessionType === s.id
-                          ? "border-ember bg-surface-2 shadow-[0_10px_24px_-16px_rgba(143,84,35,0.4)]"
-                          : "border-ink/8 bg-surface hover:border-ink/20"
+                          ? "border-accent bg-bg-2"
+                          : "border-rule bg-bg-2/50 hover:border-ink/25"
                       }`}
                     >
-                      <p className="font-display text-lg font-medium text-ink">{s.title}</p>
-                      <p className="tabular mt-1 font-mono text-sm text-ember-deep">{s.price}</p>
-                      <p className="mt-2 text-xs leading-relaxed text-muted">{s.description}</p>
+                      <p className="text-lg font-semibold text-ink">{s.title}</p>
+                      <p className="tabular mt-1 font-mono-label text-sm text-accent">{s.price}</p>
+                      <p className="mt-2 text-xs leading-relaxed text-ink-muted">{s.description}</p>
                     </button>
                   ))}
                 </div>
               </div>
 
-              {/* Date & time */}
               <div className="grid gap-6 sm:grid-cols-2">
                 <div>
-                  <label htmlFor="date" className="font-mono text-xs font-semibold uppercase tracking-[0.14em] text-muted-2">
+                  <label htmlFor="date" className="font-mono-label text-xs font-semibold uppercase tracking-[0.14em] text-ink-muted">
                     Date
                   </label>
                   <input
@@ -137,11 +129,11 @@ export default function BookingPage() {
                     value={date}
                     onChange={(e) => setDate(e.target.value)}
                     required
-                    className="mt-3 w-full rounded-md border border-ink/12 bg-surface px-4 py-3 text-sm text-ink outline-none transition focus:border-ember/50"
+                    className="mt-3 w-full rounded-md border border-rule bg-bg-2 px-4 py-3 text-sm text-ink outline-none transition-colors focus:border-accent/60"
                   />
                 </div>
                 <div>
-                  <label htmlFor="time" className="font-mono text-xs font-semibold uppercase tracking-[0.14em] text-muted-2">
+                  <label htmlFor="time" className="font-mono-label text-xs font-semibold uppercase tracking-[0.14em] text-ink-muted">
                     Time
                   </label>
                   <select
@@ -149,7 +141,7 @@ export default function BookingPage() {
                     value={time}
                     onChange={(e) => setTime(e.target.value)}
                     required
-                    className="mt-3 w-full rounded-md border border-ink/12 bg-surface px-4 py-3 text-sm text-ink outline-none transition focus:border-ember/50"
+                    className="mt-3 w-full rounded-md border border-rule bg-bg-2 px-4 py-3 text-sm text-ink outline-none transition-colors focus:border-accent/60"
                   >
                     <option value="" disabled>Select a slot</option>
                     {timeSlots.map((t) => (
@@ -159,25 +151,24 @@ export default function BookingPage() {
                 </div>
               </div>
 
-              {/* Party size */}
               <div>
-                <label htmlFor="party" className="font-mono text-xs font-semibold uppercase tracking-[0.14em] text-muted-2">
+                <label htmlFor="party" className="font-mono-label text-xs font-semibold uppercase tracking-[0.14em] text-ink-muted">
                   Party Size
                 </label>
-                <div className="mt-3 inline-flex items-center gap-4 rounded-md border border-ink/12 bg-surface px-4 py-2">
+                <div className="mt-3 inline-flex items-center gap-4 rounded-md border border-rule bg-bg-2 px-4 py-2">
                   <button
                     type="button"
                     onClick={() => setPartySize((n) => Math.max(1, n - 1))}
-                    className="text-lg text-muted transition hover:text-ink"
+                    className="text-lg text-ink-muted transition-colors hover:text-ink"
                     aria-label="Decrease party size"
                   >
                     &minus;
                   </button>
-                  <span className="tabular w-6 text-center font-mono text-sm text-ink">{partySize}</span>
+                  <span className="tabular w-6 text-center font-mono-label text-sm text-ink">{partySize}</span>
                   <button
                     type="button"
                     onClick={() => setPartySize((n) => Math.min(8, n + 1))}
-                    className="text-lg text-muted transition hover:text-ink"
+                    className="text-lg text-ink-muted transition-colors hover:text-ink"
                     aria-label="Increase party size"
                   >
                     +
@@ -185,10 +176,9 @@ export default function BookingPage() {
                 </div>
               </div>
 
-              {/* Contact */}
               <div className="grid gap-6 sm:grid-cols-2">
                 <div>
-                  <label htmlFor="name" className="font-mono text-xs font-semibold uppercase tracking-[0.14em] text-muted-2">
+                  <label htmlFor="name" className="font-mono-label text-xs font-semibold uppercase tracking-[0.14em] text-ink-muted">
                     Name
                   </label>
                   <input
@@ -198,11 +188,11 @@ export default function BookingPage() {
                     onChange={(e) => setName(e.target.value)}
                     required
                     placeholder="Your name"
-                    className="mt-3 w-full rounded-md border border-ink/12 bg-surface px-4 py-3 text-sm text-ink outline-none transition placeholder:text-muted-2 focus:border-ember/50"
+                    className="mt-3 w-full rounded-md border border-rule bg-bg-2 px-4 py-3 text-sm text-ink outline-none transition-colors placeholder:text-ink-muted focus:border-accent/60"
                   />
                 </div>
                 <div>
-                  <label htmlFor="phone" className="font-mono text-xs font-semibold uppercase tracking-[0.14em] text-muted-2">
+                  <label htmlFor="phone" className="font-mono-label text-xs font-semibold uppercase tracking-[0.14em] text-ink-muted">
                     Phone
                   </label>
                   <input
@@ -212,14 +202,14 @@ export default function BookingPage() {
                     onChange={(e) => setPhone(e.target.value)}
                     required
                     placeholder="+91 XXXXX XXXXX"
-                    className="mt-3 w-full rounded-md border border-ink/12 bg-surface px-4 py-3 text-sm text-ink outline-none transition placeholder:text-muted-2 focus:border-ember/50"
+                    className="mt-3 w-full rounded-md border border-rule bg-bg-2 px-4 py-3 text-sm text-ink outline-none transition-colors placeholder:text-ink-muted focus:border-accent/60"
                   />
                 </div>
               </div>
 
               <div>
-                <label htmlFor="notes" className="font-mono text-xs font-semibold uppercase tracking-[0.14em] text-muted-2">
-                  Notes <span className="normal-case text-muted-2">(optional)</span>
+                <label htmlFor="notes" className="font-mono-label text-xs font-semibold uppercase tracking-[0.14em] text-ink-muted">
+                  Notes <span className="normal-case text-ink-muted">(optional)</span>
                 </label>
                 <textarea
                   id="notes"
@@ -227,18 +217,18 @@ export default function BookingPage() {
                   onChange={(e) => setNotes(e.target.value)}
                   rows={3}
                   placeholder="Anything we should know?"
-                  className="mt-3 w-full resize-none rounded-md border border-ink/12 bg-surface px-4 py-3 text-sm text-ink outline-none transition placeholder:text-muted-2 focus:border-ember/50"
+                  className="mt-3 w-full resize-none rounded-md border border-rule bg-bg-2 px-4 py-3 text-sm text-ink outline-none transition-colors placeholder:text-ink-muted focus:border-accent/60"
                 />
               </div>
 
               <button
                 type="submit"
                 disabled={!canSubmit}
-                className="w-full rounded-md bg-ember px-8 py-4 text-sm font-semibold text-white shadow-[0_10px_24px_-10px_rgba(143,84,35,0.5)] transition hover:bg-ember-deep hover:scale-[1.01] disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:scale-100 sm:w-auto"
+                className="w-full rounded-md bg-accent px-8 py-4 text-sm font-semibold text-accent-ink transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40 sm:w-auto"
               >
                 Continue on WhatsApp
               </button>
-              <p className="text-xs text-muted-2">
+              <p className="text-xs text-ink-muted">
                 We don&apos;t auto-confirm bookings yet &mdash; sending opens WhatsApp with your
                 details filled in, and we&apos;ll confirm the slot with you there.
               </p>
@@ -248,21 +238,21 @@ export default function BookingPage() {
               key="confirmation"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, ease: "easeOut" }}
-              className="mt-12 rounded-2xl border border-ink/8 bg-surface-2 p-10 text-center"
+              transition={{ duration: 0.5 }}
+              className="mt-12 rounded-lg border border-rule bg-bg-2 p-10 text-center"
             >
-              <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-ember text-white">
+              <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-accent text-accent-ink">
                 <Check className="h-6 w-6" />
               </div>
-              <h2 className="mt-6 font-display text-2xl font-medium text-ink">Request sent to WhatsApp.</h2>
-              <p className="mt-3 text-sm leading-relaxed text-muted">
+              <h2 className="mt-6 text-2xl font-bold text-ink">Request sent to WhatsApp.</h2>
+              <p className="mt-3 text-sm leading-relaxed text-ink-muted">
                 Finish sending the pre-filled message over there and we&apos;ll confirm your{" "}
                 {selectedPlan.title.toLowerCase()} slot on {date} at {time}. Didn&apos;t open?{" "}
                 <a
                   href={`https://wa.me/${WHATSAPP_NUMBER}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="font-medium text-ember-deep underline underline-offset-2"
+                  className="font-medium text-accent underline underline-offset-2"
                 >
                   Open WhatsApp manually
                 </a>
@@ -271,43 +261,41 @@ export default function BookingPage() {
               <button
                 type="button"
                 onClick={() => setSent(false)}
-                className="mt-6 text-xs font-medium uppercase tracking-widest text-muted-2 underline underline-offset-4 transition hover:text-ink"
+                className="mt-6 text-xs font-medium uppercase tracking-widest text-ink-muted underline underline-offset-4 transition-colors hover:text-ink"
               >
                 Book another session
               </button>
             </motion.div>
           )}
-        </AnimatePresence>
 
-        {/* Fallback contact */}
-        <div className="mt-16 grid grid-cols-1 gap-6 border-t border-ink/8 pt-12 md:grid-cols-2">
+        <div className="mt-16 grid grid-cols-1 gap-6 border-t border-rule pt-12 md:grid-cols-2">
           <a
             href="tel:+917702528817"
-            className="group rounded-2xl border border-ink/8 bg-surface p-8 text-left transition hover:border-ember/30 hover:-translate-y-0.5"
+            className="group rounded-lg border border-rule bg-bg-2/50 p-8 text-left transition-colors hover:border-accent/40"
           >
-            <Phone className="h-7 w-7 text-ember-deep" />
-            <h3 className="mt-5 font-display text-lg font-medium text-ink">Call Us</h3>
-            <p className="tabular mt-2 font-mono text-xl font-semibold tracking-tight text-ink">+91 77025 28817</p>
+            <Phone className="h-7 w-7 text-accent" />
+            <h3 className="mt-5 text-lg font-semibold text-ink">Call Us</h3>
+            <p className="tabular mt-2 font-mono-label text-xl font-semibold tracking-tight text-ink">+91 77025 28817</p>
           </a>
           <a
             href="mailto:connect@kgg.lounge"
-            className="group rounded-2xl border border-ink/8 bg-surface p-8 text-left transition hover:border-ember/30 hover:-translate-y-0.5"
+            className="group rounded-lg border border-rule bg-bg-2/50 p-8 text-left transition-colors hover:border-accent/40"
           >
-            <Mail className="h-7 w-7 text-ember-deep" />
-            <h3 className="mt-5 font-display text-lg font-medium text-ink">Email Us</h3>
-            <p className="mt-2 font-mono text-lg font-semibold tracking-tight text-ink">connect@kgg.lounge</p>
+            <Mail className="h-7 w-7 text-accent" />
+            <h3 className="mt-5 text-lg font-semibold text-ink">Email Us</h3>
+            <p className="mt-2 font-mono-label text-lg font-semibold tracking-tight text-ink">connect@kgg.lounge</p>
           </a>
         </div>
 
-        <div className="mt-6 rounded-2xl border border-ink/8 bg-surface p-8">
+        <div className="mt-6 rounded-lg border border-rule bg-bg-2/50 p-8">
           <div className="flex flex-col md:flex-row md:items-start md:gap-6">
-            <MapPin className="h-7 w-7 shrink-0 text-ember-deep" />
+            <MapPin className="h-7 w-7 shrink-0 text-accent" />
             <div className="mt-4 md:mt-0">
-              <h3 className="font-display text-lg font-medium text-ink">Visit Us</h3>
-              <p className="mt-2 text-base text-muted">537, Bairagipatteda Rd, Tirupati - 517501</p>
+              <h3 className="text-lg font-semibold text-ink">Visit Us</h3>
+              <p className="mt-2 text-base text-ink-muted">537, Bairagipatteda Rd, Tirupati - 517501</p>
               <div className="mt-4 flex items-center gap-3">
-                <Clock className="h-5 w-5 text-muted-2" />
-                <span className="font-mono text-sm font-medium text-muted-2">10:00 AM - 11:00 PM (Daily)</span>
+                <Clock className="h-5 w-5 text-ink-muted" />
+                <span className="font-mono-label text-sm font-medium text-ink-muted">10:00 AM - 11:00 PM (Daily)</span>
               </div>
             </div>
           </div>

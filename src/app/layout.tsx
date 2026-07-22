@@ -1,23 +1,20 @@
 import type { Metadata } from "next";
-import { Fraunces, Instrument_Sans, JetBrains_Mono } from "next/font/google";
+import { Bricolage_Grotesque, Geist, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import VisualEditsMessenger from "../visual-edits/VisualEditsMessenger";
 import ErrorReporter from "@/components/ErrorReporter";
-import FuturisticCursor from "@/components/FuturisticCursor";
 import Script from "next/script";
 
-const displayFont = Fraunces({
+const displayFont = Bricolage_Grotesque({
   subsets: ["latin"],
-  weight: ["500", "600", "900"],
-  style: ["normal", "italic"],
+  weight: ["600", "700", "800"],
   variable: "--font-display",
   display: "swap",
 });
 
-const bodyFont = Instrument_Sans({
+const bodyFont = Geist({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  style: ["normal", "italic"],
+  weight: ["400", "500", "600"],
   variable: "--font-body",
   display: "swap",
 });
@@ -31,7 +28,7 @@ const monoFont = JetBrains_Mono({
 
 export const metadata: Metadata = {
   title: "Karthikeya's Games Galaxy - Don't be bored, get on-board! | Premium Gaming Lounge in Tirupati",
-  description: "Don't be bored, get on-board! Experience next-gen gaming with PS5, Xbox Series X, Meta Quest VR, Nintendo Switch, racing setups, and board games. VR Cricket Turf now available in Tirupati - book your session today!",
+  description: "Don't be bored, get on-board! Experience next-gen gaming with PS5, Xbox Series X, Meta Quest VR, Nintendo Switch, racing setups, and board games in Tirupati - book your session today!",
 };
 
 export default function RootLayout({
@@ -42,7 +39,6 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${displayFont.variable} ${bodyFont.variable} ${monoFont.variable}`}>
       <body className="antialiased">
-        <FuturisticCursor />
         <ErrorReporter />
         <Script
           src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/scripts//route-messenger.js"

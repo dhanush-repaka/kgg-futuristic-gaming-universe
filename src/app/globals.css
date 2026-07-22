@@ -1,88 +1,66 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
-@custom-variant dark (&:is(.dark *));
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-body);
-  --font-display: var(--font-display);
-  --font-mono: var(--font-mono);
-
-  --color-border: var(--border);
-  --color-input: var(--input);
-  --color-ring: var(--ring);
-
-  --color-base: var(--kgg-base);
-  --color-base-2: var(--kgg-base-2);
-  --color-surface: var(--kgg-surface);
-  --color-surface-2: var(--kgg-surface-2);
+  --color-bg: var(--kgg-bg);
+  --color-bg-2: var(--kgg-bg-2);
   --color-ink: var(--kgg-ink);
-  --color-muted: var(--kgg-muted);
-  --color-muted-2: var(--kgg-muted-2);
-  --color-ember: var(--kgg-ember);
-  --color-ember-soft: var(--kgg-ember-soft);
-  --color-ember-deep: var(--kgg-ember-deep);
-  --color-electric: var(--kgg-electric);
-  --color-electric-soft: var(--kgg-electric-soft);
-  --color-electric-deep: var(--kgg-electric-deep);
+  --color-ink-muted: var(--kgg-ink-muted);
+  --color-rule: var(--kgg-rule);
+  --color-accent: var(--kgg-accent);
+  --color-accent-ink: var(--kgg-accent-ink);
+  --font-display: var(--font-display);
+  --font-body: var(--font-body);
+  --font-mono: var(--font-mono);
 }
 
 :root {
-  /* KGG Design System v2 — Premium Tech-Luxury (see DESIGN.md).
-     Single restrained copper accent — "ember" and "electric" token names
-     are kept from v1 so component classNames didn't need renaming, but
-     both now resolve to the same copper family (no more dual neon accent). */
-  --kgg-base: #f7f5f2;
-  --kgg-base-2: #efebe5;
-  --kgg-surface: #ffffff;
-  --kgg-surface-2: #efebe5;
-  --kgg-ink: #161513;
-  --kgg-muted: #6b6660;
-  --kgg-muted-2: #8f8a83;
-  --kgg-ember: #c97c3d;
-  --kgg-ember-soft: #e8b98a;
-  --kgg-ember-deep: #8f5423;
-  --kgg-electric: #c97c3d;
-  --kgg-electric-soft: #e8b98a;
-  --kgg-electric-deep: #8f5423;
-  --kgg-line: rgba(22, 21, 19, 0.08);
-  --kgg-line-strong: rgba(22, 21, 19, 0.14);
-
-  --background: var(--kgg-base);
-  --foreground: var(--kgg-ink);
-  --border: var(--kgg-line);
-  --input: var(--kgg-line);
-  --ring: var(--kgg-ember);
-  --radius: 0.75rem;
+  /* KGG — story site built around 5 scroll-scrubbed scene videos. Dark,
+     cinematic base because the footage is dark; one warm accent (marquee
+     gold) so the brand reads as premium/ticketed, not another neon-HUD
+     gamer site. See git history on `design/v4-hallmark-attempt` and the
+     v1-v3 log for the directions this deliberately differs from. */
+  --kgg-bg: #0b0a0d;
+  --kgg-bg-2: #17151b;
+  --kgg-ink: #f4f1ec;
+  --kgg-ink-muted: #a6a2a6;
+  --kgg-rule: rgba(244, 241, 236, 0.12);
+  --kgg-accent: #f2b23d;
+  --kgg-accent-ink: #17130a;
 }
 
 @layer base {
-  * {
-    @apply border-border outline-ring/50;
-  }
   html {
-    scroll-behavior: smooth;
-    background-color: var(--kgg-base);
+    background-color: var(--kgg-bg);
+    overflow-x: clip;
   }
   body {
-    @apply bg-background text-foreground;
+    background-color: var(--kgg-bg);
+    color: var(--kgg-ink);
     font-family: var(--font-body), sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
-    overflow-x: hidden;
+    overflow-x: clip;
   }
-
   * {
     -webkit-tap-highlight-color: transparent;
   }
+  h1, h2, h3, h4 {
+    font-family: var(--font-display), sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+  }
+  .font-mono-label {
+    font-family: var(--font-mono), monospace;
+  }
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
 
   @media (prefers-reduced-motion: reduce) {
-    *,
-    *::before,
-    *::after {
+    *, *::before, *::after {
       animation-duration: 0.01ms !important;
       animation-iteration-count: 1 !important;
       transition-duration: 0.01ms !important;
@@ -90,52 +68,11 @@
     }
   }
 
-  h1, h2, h3, h4, h5, h6 {
-    font-family: var(--font-display), serif;
-    letter-spacing: -0.01em;
-  }
-
-  .perspective-1000 {
-    perspective: 1000px;
-  }
-
-  .transform-style-3d {
-    transform-style: preserve-3d;
-  }
-
-  /* Calm hover-lift — replaces v1's HUD corner-bracket motif. Kept the
-     class name so component markup didn't need touching; the pseudo
-     corner elements are gone, this is now just a soft elevation lift. */
-  .hud-frame {
-    position: relative;
-    transition: transform 0.25s ease, box-shadow 0.25s ease;
-  }
-  .hud-frame:hover, .hud-frame:focus-within {
-    transform: translateY(-2px);
-    box-shadow: 0 12px 24px -12px rgba(22, 21, 19, 0.18);
-  }
-  .hud-frame .hud-c2 {
-    display: none;
-  }
-
-  /* Hairline divider between major sections (kept subtle, no animated sheen) */
-  .scanline {
-    height: 1px;
-    background: linear-gradient(
-      90deg,
-      transparent,
-      var(--kgg-line-strong) 20%,
-      var(--kgg-line-strong) 80%,
-      transparent
-    );
-  }
-
-  .tabular {
-    font-variant-numeric: tabular-nums;
+  ::selection {
+    background: color-mix(in oklab, var(--kgg-accent) 30%, transparent);
   }
 }
 
-/* Hide Next.js error overlay portal in dev */
 nextjs-portal {
   display: none !important;
 }
