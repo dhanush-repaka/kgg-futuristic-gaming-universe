@@ -9,6 +9,7 @@ const links = [
   { href: "#burn", label: "Why KGG" },
   { href: "#platforms", label: "Platforms" },
   { href: "#lineup", label: "Lineup" },
+  { href: "#watchlist", label: "Watchlist" },
   { href: "#pricing", label: "Pricing" },
   { href: "#visit", label: "Visit" },
 ];

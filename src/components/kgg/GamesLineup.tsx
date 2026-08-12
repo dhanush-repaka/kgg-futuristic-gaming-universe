@@ -9,7 +9,7 @@ import {
 const lineup: Speaker[] = [
   { name: "GTA 6", role: "Coming Soon", src: "/games/gta-6.png" },
   { name: "Marvel Wolverine", role: "Coming Soon", src: "/games/wolverine.png" },
-  { name: "GTA V", role: "PS5", src: "/games/gta-5.png" },
+  { name: "GTA V", role: "PS5", src: "/games/gta-5.jpg" },
   { name: "Spider-Man 2", role: "PS5", src: "/games/spider-man-2.png" },
   { name: "Ghost of Tsushima", role: "PS5", src: "/games/ghost-of-tsushima.png" },
   { name: "Ghost of Yōtei", role: "PS5", src: "/games/ghost-of-yotei.png" },

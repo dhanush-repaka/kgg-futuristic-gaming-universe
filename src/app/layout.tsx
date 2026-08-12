@@ -4,6 +4,7 @@ import "./globals.css";
 import VisualEditsMessenger from "../visual-edits/VisualEditsMessenger";
 import ErrorReporter from "@/components/ErrorReporter";
 import Script from "next/script";
+import { VENUE } from "@/lib/venue";
 
 const displayFont = Syne({
   subsets: ["latin"],
@@ -12,11 +13,42 @@ const displayFont = Syne({
   display: "swap",
 });
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://kgg.lounge";
+
 export const metadata: Metadata = {
-  title:
-    "Karthikeya's Games Galaxy — Don't be bored, get on-board! | Gaming Lounge in Tirupati",
+  metadataBase: new URL(siteUrl),
+  title: {
+    default: `${VENUE.name} — ${VENUE.tagline} | Gaming Lounge in Tirupati`,
+    template: `%s · ${VENUE.shortName}`,
+  },
   description:
-    "Don't be bored, get on-board! Premium gaming lounge in Tirupati — PS5, Xbox Series X, Meta Quest VR, Nintendo Switch, racing rigs. Reserve your session tonight.",
+    "Don't be bored, get on-board! Premium walk-in gaming lounge in Tirupati — PS5, Xbox, Nintendo Switch, racing rigs, Meta Quest VR & board games. Reserve your session tonight.",
+  keywords: [
+    "gaming lounge Tirupati",
+    "PS5 Tirupati",
+    "VR gaming Tirupati",
+    "Karthikeya Games Galaxy",
+    "KGG",
+    "book gaming session",
+  ],
+  openGraph: {
+    type: "website",
+    locale: "en_IN",
+    url: "/",
+    siteName: VENUE.name,
+    title: `${VENUE.name} — ${VENUE.tagline}`,
+    description:
+      "Premium walk-in gaming lounge in Tirupati. PS5, Xbox, Switch, racing, VR — reserve a seat tonight.",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${VENUE.name} — ${VENUE.tagline}`,
+    description:
+      "Walk-in gaming lounge in Tirupati. Reserve PS5, Xbox, Switch, racing & VR sessions tonight.",
+  },
+  alternates: {
+    canonical: "/",
+  },
 };
 
 export default function RootLayout({
@@ -36,8 +68,7 @@ export default function RootLayout({
         className="antialiased"
         style={
           {
-            ["--font-body" as string]:
-              "'General Sans', system-ui, sans-serif",
+            ["--font-body" as string]: "'General Sans', system-ui, sans-serif",
           } as React.CSSProperties
         }
       >

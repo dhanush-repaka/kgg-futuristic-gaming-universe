@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { MAPS, VENUE } from "@/lib/venue";
 
 export default function StoryFooter() {
   return (
@@ -18,6 +19,14 @@ export default function StoryFooter() {
             Don&rsquo;t be bored, get on-board — a walk-in gaming lounge for console, racing, and VR
             sessions.
           </p>
+          <a
+            href={VENUE.instagramUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-4 inline-flex text-sm font-semibold text-accent underline-offset-4 hover:underline"
+          >
+            @{VENUE.instagramHandle}
+          </a>
         </div>
 
         <div>
@@ -31,6 +40,11 @@ export default function StoryFooter() {
             <li>
               <a href="#lineup" className="transition-colors hover:text-ink">
                 Lineup
+              </a>
+            </li>
+            <li>
+              <a href="#watchlist" className="transition-colors hover:text-ink">
+                Watchlist
               </a>
             </li>
             <li>
@@ -50,17 +64,35 @@ export default function StoryFooter() {
           <h4 className="font-mono-label text-[0.7rem] text-ink-muted">Visit</h4>
           <ul className="mt-6 space-y-3 text-sm text-ink-muted">
             <li>
-              <a href="tel:+917702528817" className="transition-colors hover:text-ink">
-                +91 77025 28817
+              <a href={`tel:${VENUE.phoneTel}`} className="transition-colors hover:text-ink">
+                {VENUE.phoneDisplay}
               </a>
             </li>
             <li>
-              <a href="mailto:connect@kgg.lounge" className="transition-colors hover:text-ink">
-                connect@kgg.lounge
+              <a href={`mailto:${VENUE.email}`} className="transition-colors hover:text-ink">
+                {VENUE.email}
               </a>
             </li>
-            <li>537, Bairagipatteda Rd, Tirupati - 517501</li>
-            <li className="font-mono-label text-[0.7rem]">10:00 AM – 11:00 PM, daily</li>
+            <li>{VENUE.addressLine}</li>
+            <li className="font-mono-label text-[0.7rem]">{VENUE.hoursLabel}</li>
+            <li className="flex flex-wrap gap-x-4 gap-y-2 pt-1">
+              <a
+                href={MAPS.google}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-semibold text-ink transition-colors hover:text-accent"
+              >
+                Google Maps
+              </a>
+              <a
+                href={MAPS.apple}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-semibold text-ink transition-colors hover:text-accent"
+              >
+                Apple Maps
+              </a>
+            </li>
           </ul>
         </div>
       </div>

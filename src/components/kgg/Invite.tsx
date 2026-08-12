@@ -1,4 +1,6 @@
 import Link from "next/link";
+import { MAPS, VENUE } from "@/lib/venue";
+import TonightSignal from "@/components/kgg/TonightSignal";
 
 export default function Invite() {
   return (
@@ -17,8 +19,14 @@ export default function Invite() {
           Tonight&rsquo;s seats won&rsquo;t wait.
         </h2>
         <p className="mt-5 max-w-lg text-lg text-white/70">
-          Walk into Karthikeya&rsquo;s Games Galaxy — Tirupati&rsquo;s lounge for squads, solos, and anyone done with boredom.
+          Walk into Karthikeya&rsquo;s Games Galaxy — Tirupati&rsquo;s lounge for squads, solos, and
+          anyone done with boredom.
         </p>
+
+        <div className="mt-6">
+          <TonightSignal variant="badge" onDark />
+        </div>
+
         <div className="mt-10 flex flex-wrap gap-3">
           <Link
             href="/booking"
@@ -27,14 +35,22 @@ export default function Invite() {
             Reserve a session
           </Link>
           <a
-            href="tel:+917702528817"
+            href={`tel:${VENUE.phoneTel}`}
             className="rounded-md border border-white/25 px-6 py-3.5 text-sm font-semibold text-white transition-colors hover:border-white/50"
           >
-            Call +91 77025 28817
+            Call {VENUE.phoneDisplay}
+          </a>
+          <a
+            href={MAPS.google}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="rounded-md border border-white/25 px-6 py-3.5 text-sm font-semibold text-white transition-colors hover:border-white/50"
+          >
+            Get directions
           </a>
         </div>
         <p className="mt-8 font-mono-label text-[0.7rem] text-white/45">
-          10:00 AM – 11:00 PM · 537, Bairagipatteda Rd, Tirupati
+          {VENUE.hoursLabel} · {VENUE.addressShort}
         </p>
       </div>
     </section>
