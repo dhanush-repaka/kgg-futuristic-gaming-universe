@@ -1,34 +1,22 @@
 import type { Metadata } from "next";
-import { Bricolage_Grotesque, Geist, JetBrains_Mono } from "next/font/google";
+import { Syne } from "next/font/google";
 import "./globals.css";
 import VisualEditsMessenger from "../visual-edits/VisualEditsMessenger";
 import ErrorReporter from "@/components/ErrorReporter";
 import Script from "next/script";
 
-const displayFont = Bricolage_Grotesque({
+const displayFont = Syne({
   subsets: ["latin"],
-  weight: ["600", "700", "800"],
+  weight: ["700", "800"],
   variable: "--font-display",
   display: "swap",
 });
 
-const bodyFont = Geist({
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
-  variable: "--font-body",
-  display: "swap",
-});
-
-const monoFont = JetBrains_Mono({
-  subsets: ["latin"],
-  weight: ["400", "500", "700"],
-  variable: "--font-mono",
-  display: "swap",
-});
-
 export const metadata: Metadata = {
-  title: "Karthikeya's Games Galaxy - Don't be bored, get on-board! | Premium Gaming Lounge in Tirupati",
-  description: "Don't be bored, get on-board! Experience next-gen gaming with PS5, Xbox Series X, Meta Quest VR, Nintendo Switch, racing setups, and board games in Tirupati - book your session today!",
+  title:
+    "Karthikeya's Games Galaxy — Don't be bored, get on-board! | Gaming Lounge in Tirupati",
+  description:
+    "Don't be bored, get on-board! Premium gaming lounge in Tirupati — PS5, Xbox Series X, Meta Quest VR, Nintendo Switch, racing rigs. Reserve your session tonight.",
 };
 
 export default function RootLayout({
@@ -37,8 +25,22 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${displayFont.variable} ${bodyFont.variable} ${monoFont.variable}`}>
-      <body className="antialiased">
+    <html lang="en" className={displayFont.variable}>
+      <head>
+        <link
+          href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600&display=swap"
+          rel="stylesheet"
+        />
+      </head>
+      <body
+        className="antialiased"
+        style={
+          {
+            ["--font-body" as string]:
+              "'General Sans', system-ui, sans-serif",
+          } as React.CSSProperties
+        }
+      >
         <ErrorReporter />
         <Script
           src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/scripts//route-messenger.js"

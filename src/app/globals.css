@@ -4,29 +4,57 @@
 @theme inline {
   --color-bg: var(--kgg-bg);
   --color-bg-2: var(--kgg-bg-2);
+  --color-surface: var(--kgg-surface);
   --color-ink: var(--kgg-ink);
   --color-ink-muted: var(--kgg-ink-muted);
   --color-rule: var(--kgg-rule);
   --color-accent: var(--kgg-accent);
   --color-accent-ink: var(--kgg-accent-ink);
+  --color-voltage: var(--kgg-voltage);
+
+  --color-background: var(--kgg-bg);
+  --color-foreground: var(--kgg-ink);
+  --color-card: var(--kgg-surface);
+  --color-card-foreground: var(--kgg-ink);
+  --color-popover: var(--kgg-surface);
+  --color-popover-foreground: var(--kgg-ink);
+  --color-primary: var(--kgg-accent);
+  --color-primary-foreground: var(--kgg-accent-ink);
+  --color-secondary: var(--kgg-bg-2);
+  --color-secondary-foreground: var(--kgg-ink);
+  --color-muted: var(--kgg-bg-2);
+  --color-muted-foreground: var(--kgg-ink-muted);
+  --color-accent-foreground: var(--kgg-accent-ink);
+  --color-destructive: var(--kgg-error);
+  --color-border: var(--kgg-rule);
+  --color-input: var(--kgg-rule);
+  --color-ring: var(--kgg-accent);
+
   --font-display: var(--font-display);
   --font-body: var(--font-body);
-  --font-mono: var(--font-mono);
+  --font-mono: var(--font-body);
+  --font-sans: var(--font-body);
 }
 
 :root {
-  /* KGG — story site built around 5 scroll-scrubbed scene videos. Dark,
-     cinematic base because the footage is dark; one warm accent (marquee
-     gold) so the brand reads as premium/ticketed, not another neon-HUD
-     gamer site. See git history on `design/v4-hallmark-attempt` and the
-     v1-v3 log for the directions this deliberately differs from. */
-  --kgg-bg: #0b0a0d;
-  --kgg-bg-2: #17151b;
-  --kgg-ink: #f4f1ec;
-  --kgg-ink-muted: #a6a2a6;
-  --kgg-rule: rgba(244, 241, 236, 0.12);
-  --kgg-accent: #f2b23d;
-  --kgg-accent-ink: #17130a;
+  /* Hot Daylight Premiere — see DESIGN.md */
+  --kgg-bg: #f3f7fb;
+  --kgg-bg-2: #e8eef5;
+  --kgg-surface: #ffffff;
+  --kgg-ink: #0b1424;
+  --kgg-ink-muted: #5c6b7a;
+  --kgg-rule: rgba(11, 20, 36, 0.1);
+  --kgg-accent: #ff2e00;
+  --kgg-accent-ink: #ffffff;
+  --kgg-voltage: #00c2ff;
+  --kgg-error: #c81e1e;
+  --kgg-success: #0f7a4a;
+  --kgg-warning: #c47a00;
+
+  /* Dark chapter (ScrollBurnText / manifesto) */
+  --kgg-chapter-bg: #0b1424;
+  --kgg-chapter-ink: #f3f7fb;
+  --kgg-chapter-muted: #8b9aab;
 }
 
 @layer base {
@@ -37,7 +65,7 @@
   body {
     background-color: var(--kgg-bg);
     color: var(--kgg-ink);
-    font-family: var(--font-body), sans-serif;
+    font-family: var(--font-body), system-ui, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
@@ -46,21 +74,32 @@
   * {
     -webkit-tap-highlight-color: transparent;
   }
-  h1, h2, h3, h4 {
+  h1,
+  h2,
+  h3,
+  h4 {
     font-family: var(--font-display), sans-serif;
-    font-weight: 700;
-    letter-spacing: -0.02em;
-    line-height: 1.05;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.02;
+  }
+  .font-display {
+    font-family: var(--font-display), sans-serif;
   }
   .font-mono-label {
-    font-family: var(--font-mono), monospace;
+    font-family: var(--font-body), system-ui, sans-serif;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
   }
   .tabular {
     font-variant-numeric: tabular-nums;
   }
 
   @media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after {
+    *,
+    *::before,
+    *::after {
       animation-duration: 0.01ms !important;
       animation-iteration-count: 1 !important;
       transition-duration: 0.01ms !important;
@@ -69,8 +108,20 @@
   }
 
   ::selection {
-    background: color-mix(in oklab, var(--kgg-accent) 30%, transparent);
+    background: color-mix(in oklab, var(--kgg-accent) 28%, transparent);
   }
+}
+
+/* Dark chapter scope — ScrollBurnText reads --background / --foreground */
+.kgg-chapter {
+  --kgg-bg: var(--kgg-chapter-bg);
+  --kgg-ink: var(--kgg-chapter-ink);
+  --kgg-ink-muted: var(--kgg-chapter-muted);
+  --kgg-rule: rgba(243, 247, 251, 0.12);
+  --kgg-surface: #141e2e;
+  --kgg-bg-2: #141e2e;
+  color: var(--kgg-ink);
+  background: var(--kgg-bg);
 }
 
 nextjs-portal {
