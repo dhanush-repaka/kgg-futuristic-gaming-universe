@@ -8,27 +8,30 @@ export const VENUE = {
   phoneTel: "+917702528817",
   whatsapp: "917702528817",
   email: "connect@kgg.lounge",
-  addressLine: "537, Bairagipatteda Rd, Tirupati - 517501",
+  website: "https://kgamesgalaxy.com",
+  addressLine: "537, Bairagipatteda Rd, STV Nagar, Tirupati - 517501",
   addressShort: "537, Bairagipatteda Rd, Tirupati",
   city: "Tirupati",
   /** India Standard Time — lounge clock, not the visitor's device TZ. */
   timeZone: "Asia/Kolkata",
-  hoursLabel: "10:00 AM – 11:00 PM IST · daily",
+  /** From Google Business Profile. */
+  hoursLabel: "10:30 AM – 8:30 PM IST · daily",
   openHour: 10,
-  closeHour: 23,
+  openMinute: 30,
+  closeHour: 20,
+  closeMinute: 30,
   /** Soft social proof — no invented session counts. */
-  proofLine: "Squads and walk-ins every night · Tirupati",
+  proofLine: "Real rooms from our Tirupati floor — consoles, VR, board games.",
   instagramHandle: "kgg.lounge",
   instagramUrl: "https://www.instagram.com/kgg.lounge/",
 } as const;
 
-const mapsQuery = encodeURIComponent(
-  "Karthikeya's Games Galaxy, 537 Bairagipatteda Rd, Tirupati 517501",
-);
-
 export const MAPS = {
-  google: `https://www.google.com/maps/search/?api=1&query=${mapsQuery}`,
-  apple: `http://maps.apple.com/?q=${mapsQuery}`,
+  google:
+    "https://www.google.com/maps/place/Karthikeya%E2%80%99s+Games+Galaxy/@13.6183836,79.4236624,17z/data=!3m1!4b1!4m6!3m5!1s0x3a4d4bd146e9d125:0xa8a85c11527383ef!8m2!3d13.6183836!4d79.4236624!16s%2Fg%2F11yg04syjw",
+  apple: `http://maps.apple.com/?ll=13.6183836,79.4236624&q=${encodeURIComponent(
+    "Karthikeya's Games Galaxy",
+  )}`,
 } as const;
 
 export function whatsappUrl(text?: string) {
@@ -114,13 +117,13 @@ export type TonightStatus =
 /** Live open/close signal from lounge hours in IST. */
 export function getTonightStatus(now = new Date()): TonightStatus {
   const { minutesOfDay: minutes } = getIndiaNow(now);
-  const openAt = VENUE.openHour * 60;
-  const closeAt = VENUE.closeHour * 60;
+  const openAt = VENUE.openHour * 60 + VENUE.openMinute;
+  const closeAt = VENUE.closeHour * 60 + VENUE.closeMinute;
 
   if (minutes < openAt) {
     return {
       kind: "before_open",
-      label: "Opens at 10:00 AM IST",
+      label: "Opens at 10:30 AM IST",
       detail: "Walk-ins welcome once doors open",
     };
   }
@@ -129,7 +132,7 @@ export function getTonightStatus(now = new Date()): TonightStatus {
     return {
       kind: "closed",
       label: "Closed for tonight",
-      detail: "Opens 10:00 AM IST tomorrow · reserve ahead",
+      detail: "Opens 10:30 AM IST tomorrow · reserve ahead",
     };
   }
 
@@ -153,7 +156,7 @@ export function getTonightStatus(now = new Date()): TonightStatus {
     kind: "open",
     minutesLeft,
     label: leftLabel,
-    detail: "Walk-ins until 11:00 PM IST · reserve for a guaranteed seat",
+    detail: "Walk-ins until 8:30 PM IST · reserve for a guaranteed seat",
   };
 }
 

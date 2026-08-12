@@ -42,7 +42,6 @@ const sessionTypes = [
 ] as const;
 
 const timeSlots = [
-  "10:00 AM",
   "11:00 AM",
   "12:00 PM",
   "1:00 PM",
@@ -53,7 +52,6 @@ const timeSlots = [
   "6:00 PM",
   "7:00 PM",
   "8:00 PM",
-  "9:00 PM",
 ];
 
 const labelClass = "font-mono-label text-[0.7rem] text-ink-muted";
